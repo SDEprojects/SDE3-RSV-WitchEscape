@@ -1,0 +1,14 @@
+<game>
+    <house>
+
+        <east>arismarket</east>
+        <west>boardwalk</west>
+        <south>pier</south>
+        <north>mz</north>
+
+    </house>
+    <arismarket></arismarket>
+    <boardwalk></boardwalk>
+    <pier></pier>
+    <ship></ship>
+</game>

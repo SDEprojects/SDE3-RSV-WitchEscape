@@ -1,0 +1,82 @@
+<locations>
+<!--HOUSE-->
+    <location name="House">
+        <prompt>
+            You wake up to the sound of the church bell ringing.
+            Your mother is baking bread on the stove, and rocking in a chair.
+            You get out of bed, and go to her.
+            "They're coming for you," she says. She hands you a bag, and says
+            "Better pack your things and sneak out while you can."
+        </prompt>
+
+        <description>
+            You are in your house.
+            Gather your things and sneak away.
+        </description>
+
+        <north>Front Door</north>
+<!--        <consequence>NegHealth</consequence>-->
+<!--        <healthimpact>-5</healthimpact>-->
+        <north_action>
+            You opened the door and villagers hit you with stones!
+            Your health has decreased.
+        </north_action>
+
+        <east>Window</east>
+<!--        <consequence>-->
+<!--            Move-->
+<!--        </consequence>-->
+<!--        <destination>Market</destination>-->
+        <east_action>
+            You crawl through the window, evading villagers and zombies,
+            and make it to the Market.
+        </east_action>
+        <!--east_destination_object-->
+
+        <south>Back Door</south>
+<!--        <consequence>death</consequence>-->
+        <south_action>
+            You open the back door and are swarmed by zombies
+            who rip you and your mother apart.
+        </south_action>
+
+        <west>Closet</west>
+<!--        <consequence>treasure</consequence>-->
+<!--        <item>locket</item>-->
+        <west_action>
+            You open the closet, and find a necklace your mother gave you.
+            You put it on.
+        </west_action>
+    </location>
+
+<!--MARKET-->
+    <location name="Market">
+    <!--Sohail adds this section-->
+        <prompt>Market Prompt</prompt> <!--What it prints when you enter the area for the first time.-->
+        <description>This is the Market.</description>
+        <north>Market North</north>
+        <north_action>Market North action</north_action>
+        <east>Market East</east>
+        <east_action>Market East action</east_action>
+        <south>Market South</south>
+        <south_action>Market South action</south_action>
+        <west>Market West</west>
+        <west_action>Market West action</west_action>
+
+    </location>
+
+<!--PIER-->
+    <location name="Pier">
+        <!--Laura adds this section-->
+        <prompt>Pier Prompt</prompt> <!--What it prints when you enter the area for the first time.-->
+        <description>This is the Pier.</description>
+        <north>Pier North</north>
+        <north_action>Pier North action</north_action>
+        <east>Pier East</east>
+        <east_action>Pier East action</east_action>
+        <south>Pier South</south>
+        <south_action>Pier South action</south_action>
+        <west>Pier West</west>
+        <west_action>Pier West action</west_action>
+    </location>
+</locations>
