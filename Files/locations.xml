@@ -27,6 +27,7 @@
 
     <location name="Pier">
         <boardwalk>You look around, you see the Ships on the pier and a group of sailors.;You see ships and wooden crates on the pier and the ale house down the boardwalk.;You're back on the pier, you see grain bags and ale kegs.;Still on the pier, you see the forest that heads back to the Market.;You survive, get the 3 pieces of leather and head back toward the Market.;Enter 1 to pick leather </boardwalk>
+        <prompt type="sailors"></prompt>
         <bag></bag>
         <prompt>You see 3 ships on the Pier, there is a brown ship, a black ship and white ship.;Which one would you like to checkout? enter brown, or white, or black</prompt> <!--What it prints when you enter the area for the first time.-->
         <ship type="white">Trade your necklace to aboard and escape.;Enter 1 to trade</ship>
