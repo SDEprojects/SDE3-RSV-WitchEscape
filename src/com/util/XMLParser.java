@@ -1,6 +1,7 @@
 package com.util;
 
 import org.w3c.dom.*;
+
 import javax.xml.parsers.*;
 import java.io.*;
 import java.util.*;
@@ -19,10 +20,10 @@ public class XMLParser {
         try{
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse((new File("src/locations.xml")));
+            Document document = builder.parse((new File("./Files/locations.xml")));
             document.getDocumentElement().normalize();
             //Store game Intro text
-            gameIntro=document.getDocumentElement().getElementsByTagName("gameintro").item(0).getTextContent().replaceAll("NL", "\n");
+            gameIntro=document.getElementsByTagName("gameintro").item(0).getTextContent();//replaceAll("NL", "\n");
             //********---*******
             //Store get synonyms
             String [] getArray = document.getDocumentElement().getElementsByTagName("get").item(0).getTextContent().split(", ");
@@ -64,6 +65,12 @@ public class XMLParser {
            String ex = e.toString();
         }
 
+    }
+
+    public static void main(String[] args) {
+        XMLParser xmlParser = new XMLParser();
+        xmlParser.parser();
+        System.out.println(xmlParser.gameIntro);
     }
 
 

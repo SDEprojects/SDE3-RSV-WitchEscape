@@ -18,12 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import com.util.XMLParser;
-import org.w3c.dom.Document;
-
 import com.util.Typewriter;
 import com.game.TheWorldInteraction;
 
@@ -104,6 +100,7 @@ public class Gui {
 			displayTextArea.setLineWrap(true);
 			xmlParser.parser();
 			setMessage(xmlParser.gameIntro);
+
 		}
 		return displayTextArea;
 	}
@@ -147,8 +144,8 @@ public class Gui {
 		public void actionPerformed(ActionEvent e) {
 			// create startScreen
 			createGameScreen();
-			world.start();
-			world.roomPrompt();
+//			world.start();
+//			world.roomPrompt();
 		}
 	}
 
@@ -234,7 +231,7 @@ public class Gui {
 //        gameWindow.setSize(1050,1000);//ORIGINAL
 //		gameWindow.setSize(1050, 600);
 //		gameWindow.setSize(Gui.MAP_IMAGE_WIDTH + 200, Gui.MAP_IMAGE_HEIGHT + 200);
-		gameWindow.setSize(1000, 800);
+		gameWindow.setSize(1200, 800);
 		gameWindow.setResizable(false);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameWindow.getContentPane().setBackground(Color.BLACK);
@@ -461,10 +458,10 @@ public class Gui {
 		return currentLocationLabel;
 	}
 
-	static File file = new File("./Files/locations.xml");
-	static DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-	static DocumentBuilder documentBuilder;
-	static Document document;
+//	static File file = new File("./Files/locations.xml");
+//	static DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+//	static DocumentBuilder documentBuilder;
+//	static Document document;
 
 	private GuiPlayPanel guiPlayPanel;
 

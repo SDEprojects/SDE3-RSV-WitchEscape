@@ -19,9 +19,9 @@ public class Typewriter {
         Timer timer = new Timer(20,new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                String jtextAreaString = jTextArea.getText();
-                jtextAreaString +=text.charAt(charIndex);
-                jTextArea.setText(jtextAreaString);
+                String jTextAreaString = jTextArea.getText();
+                jTextAreaString += text.charAt(charIndex);
+                jTextArea.setText(jTextAreaString);
                 charIndex++;
                 if(charIndex >= text.length()){
                     ((Timer)e.getSource()).stop();
