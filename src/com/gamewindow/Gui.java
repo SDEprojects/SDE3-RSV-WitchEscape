@@ -6,6 +6,7 @@ import org.w3c.dom.Document;
 import javax.swing.*;
 
 import javax.swing.border.Border;
+import javax.xml.crypto.dsig.spec.DigestMethodParameterSpec;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,7 +23,7 @@ public class Gui {
 
     public static JFrame gameWindow; // for main game window
     JFrame mapFrame; // for displaying map
-    JPanel startPanel, displayOutputPanel, inputPanel, sidePanel, titlePanel, backgroundPanel, helpPanel;
+    JPanel startPanel, displayOutputPanel, inputPanel, sidePanel, titlePanel, backgroundPanel, helpPanel, mainMiddlePanel;
     JButton startButton, mapButton, helpButton, enterButton;
     JLabel currentLocationLabel, itemsCollectedLabel, inputCommandLabel, titleLabel, backgroundLabel;
     ImageIcon backgroundImage;
@@ -45,10 +46,10 @@ public class Gui {
     Container container;
 
     //Font and styling
-    Font titleFont = new Font( "Times New Roman",Font.BOLD,50);
-    Font btnFont = new Font("Times New Roman",Font.BOLD,18);
-    Font displayAreaFont = new Font("Times New Roman",Font.ITALIC,18);
-    Font displayNumberFont = new Font("Times New Roman", Font.BOLD,18);
+    Font titleFont = new Font( "Rockwell",Font.BOLD,50);
+    Font btnFont = new Font("Rockwell",Font.BOLD,18);
+    Font displayAreaFont = new Font("Rockwell",Font.ITALIC,18);
+    Font displayNumberFont = new Font("Rockwell", Font.BOLD,18);
 
     //instantiate the classes
     TitleScreen startScreen = new TitleScreen();
@@ -60,6 +61,7 @@ public class Gui {
         @Override
         public void actionPerformed(ActionEvent e) {
             helpPanel.setVisible(true);
+            setMessage("This is the test if the type writer works and displays in jTextArea", helpTextArea);
         }
     }
 
@@ -92,7 +94,7 @@ public class Gui {
 
         //Design a map window
         mapFrame = new JFrame();
-        mapFrame.setSize(500,500);
+        mapFrame.setSize(600,600);
         mapFrame.setResizable(false);
         mapFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         mapFrame.getContentPane().setBackground(Color.BLACK);
@@ -119,7 +121,7 @@ public class Gui {
 
         // game window design
         gameWindow = new JFrame("Witch Escape: Try to escape!");
-        gameWindow.setSize(1050,920);
+        gameWindow.setSize(1050,1000);
         gameWindow.setResizable(false);
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameWindow.getContentPane().setBackground(Color.BLACK);
@@ -135,7 +137,7 @@ public class Gui {
 
         //titlePanel design
         titlePanel = new JPanel();
-        titlePanel.setBounds(200,100,920,125);
+        titlePanel.setBounds(100,100,800,125);
         titlePanel.setOpaque(false);
 
         //add label to panel
@@ -162,14 +164,18 @@ public class Gui {
 
         //start panel design
         startPanel = new JPanel();
-        startPanel.setBounds(800,400,200,80);
+        startPanel.setBounds(400,400,200,300);
         startPanel.setOpaque(false);
         backgroundLabel.add(startPanel);
 
         // buttons on start page
-        startButton = new JButton("START");
+        Dimension dimension = new Dimension(200,300);
+        startButton = new JButton(" START ");
+
+        startButton.setSize(dimension);
         startButton.setFont(btnFont);
-        startButton.setForeground(Color.GRAY);
+        startButton.setOpaque(false);
+        startButton.setForeground(Color.BLACK);
         startButton.setBackground(Color.GRAY);
 
         //adding event listener
@@ -182,78 +188,99 @@ public class Gui {
     public void createGameScreen(){
 
         //making panels invisible
-        titlePanel.setVisible(false);
+        titlePanel.setBounds(100,10,800,125);
+        titlePanel.setVisible(true);
         startButton.setVisible(false);
         backgroundPanel.setVisible(false);
 
-
+//        mainMiddlePanel=new JPanel();
+//        mainMiddlePanel.setBounds(100,145,800,300);
+//        mainMiddlePanel.setLayout(new GridLayout(1,2));
+//        mainMiddlePanel.setOpaque(false);
+//        mainMiddlePanel.add(sidePanel);
+//        mainMiddlePanel.add(displayOutputPanel);
+//        container.add(mainMiddlePanel);
+        Border line = BorderFactory.createLineBorder(Color.RED);
         //main display for outputs
         displayOutputPanel = new JPanel();
-
-        displayOutputPanel.setBounds(100,145,800,300);
-
-        //displayOutputPanel.setOpaque(false);
+        displayOutputPanel.setBorder(line);
+        displayOutputPanel.setBounds(100,345,800,300);
         container.add(displayOutputPanel); // adding to the container
+
+        //adding two panel side to side
+
 
         displayTextArea = new JTextArea();
 //        Typewriter typewriter1 = new Typewriter();
-        Border line = BorderFactory.createLineBorder(Color.WHITE);
-        displayTextArea.setBounds(100,145,800,300);
+
+        displayTextArea.setBounds(100,345,800,300);
         displayTextArea.setFont(displayAreaFont);
         displayTextArea.setBackground(Color.CYAN);
         displayTextArea.setForeground(Color.BLACK);
         displayTextArea.setLineWrap(true);
-        displayTextArea.setBorder(line);
-        displayTextArea.setOpaque(false);
+
+
         displayTextArea.setText("Welcome, this is a test");
         //add to display panel
         displayOutputPanel.add(displayTextArea);
 
         sidePanel = new JPanel();
-        sidePanel.setBounds(100,15,800,50);
-        sidePanel.setBackground(Color.CYAN);
-        sidePanel.setLayout(new GridLayout(1,4));
+        sidePanel.setBounds(100,130,800,200);
+        sidePanel.setBackground(Color.GRAY);
+        sidePanel.setLayout(new GridLayout(2,2));
 
         container.add(sidePanel);
 
-        currentLocationLabel = new JLabel("Current Location");
+        currentLocationLabel = new JLabel("     Current Location");
         currentLocationLabel.setFont(displayNumberFont);
-        currentLocationLabel.setForeground(Color.WHITE);
+        currentLocationLabel.setBackground(Color.gray);
+        currentLocationLabel.setForeground(Color.BLACK);
+        currentLocationLabel.setBorder(line);
+
         sidePanel.add(currentLocationLabel);
 
-        displayCurrentLocation = new JLabel("House");
+        displayCurrentLocation = new JLabel(" House");
         displayCurrentLocation.setFont(displayNumberFont);
-        displayCurrentLocation.setForeground(Color.WHITE);
+        displayCurrentLocation.setBackground(Color.gray);
+        displayCurrentLocation.setForeground(Color.BLACK);
+        displayCurrentLocation.setBorder(line);
         sidePanel.add(displayCurrentLocation);
 
-        itemsCollectedLabel = new JLabel("Items collected");
+        itemsCollectedLabel = new JLabel("      Items collected");
         itemsCollectedLabel.setFont(displayNumberFont);
-        itemsCollectedLabel.setForeground(Color.WHITE);
+        itemsCollectedLabel.setBackground(Color.gray);
+        itemsCollectedLabel.setForeground(Color.BLACK);
+        itemsCollectedLabel.setBorder(line);
         sidePanel.add(itemsCollectedLabel);
 
         currentItemsCollected = new JLabel("");
         currentItemsCollected.setFont(displayNumberFont);
+        currentItemsCollected.setBackground(Color.CYAN);
         currentItemsCollected.setForeground(Color.WHITE);
+        currentItemsCollected.setBorder(line);
         sidePanel.add(currentItemsCollected);
 
         inputPanel = new JPanel();
-        inputPanel.setBounds(100,565,800,50);
+        inputPanel.setBounds(100,650,800,50);
         inputPanel.setLayout(new GridLayout(1,3));
 
 
-        inputCommandLabel = new JLabel("Go where");
-        inputCommandLabel.setBounds(100,565,200,50);
+
+        inputCommandLabel = new JLabel("    Go Where");
+        inputCommandLabel.setBounds(100,650,50,50);
         inputCommandLabel.setFont(displayNumberFont);
-        inputCommandLabel.setBackground(Color.CYAN);
-        inputCommandLabel.setForeground(Color.black);
+        inputCommandLabel.setBackground(Color.GRAY);
+        inputCommandLabel.setForeground(Color.BLACK);
+        inputCommandLabel.setBorder(line);
         inputPanel.add(inputCommandLabel);
         container.add(inputPanel);
 
         inputText = new JTextField();
-        inputText.setBounds(400,565,500,50);
+        inputText.setBounds(155,650,100,50);
         inputText.setFont(displayNumberFont);
-        inputText.setBackground(Color.CYAN);
-        inputText.setForeground(Color.black);
+        inputText.setBackground(Color.GRAY);
+        inputText.setForeground(Color.BLACK);
+        inputText.setBorder(line);
         inputPanel.add(inputText);
 
         // when you enter after inputting commands in input text field
@@ -269,47 +296,49 @@ public class Gui {
         });
 
         enterButton = new JButton("Enter");
-        enterButton.setBounds(400,565,100,50);
+        enterButton.setBounds(260,650,50,50);
         enterButton.setFont(displayNumberFont);
-        enterButton.setBackground(Color.cyan);
-        enterButton.setForeground(Color.cyan);
+        enterButton.setBackground(Color.GRAY);
+        enterButton.setForeground(Color.BLACK);
         enterButton.addActionListener(executeMove);
+        enterButton.setBorder(line);
         inputPanel.add(enterButton);
         enterButton.setFocusPainted(false);
 
         mapButton = new JButton("Show Map");
-        mapButton.setBounds(400,565,100,50);
+        mapButton.setBounds(320,650,50,50);
         mapButton.setFont(displayNumberFont);
-        mapButton.setBackground(Color.cyan);
-        mapButton.setForeground(Color.cyan);
+        mapButton.setBackground(Color.GRAY);
+        mapButton.setForeground(Color.BLACK);
         mapButton.addActionListener(displayMap);
+        mapButton.setBorder(line);
         inputPanel.add(mapButton);
         mapButton.setFocusPainted(false);
 
-        helpButton = new JButton("Help/Instructions");
-        helpButton.setBounds(400,565,100,50);
+        helpButton = new JButton("Help");
+        helpButton.setBounds(400,650,100,50);
         helpButton.setFont(displayNumberFont);
-        helpButton.setBackground(Color.cyan);
-        helpButton.setForeground(Color.cyan);
+        helpButton.setBackground(Color.GRAY);
+        helpButton.setForeground(Color.BLACK);
+        helpButton.setBorder(line);
         helpButton.addActionListener(helpMessageDisplay);
         inputPanel.add(helpButton);
         helpButton.setFocusPainted(false);
 
 
         helpPanel= new JPanel();
-        helpPanel.setBounds(100,625,800,200);
+        helpPanel.setBounds(100,710,800,200);
         helpPanel.setVisible(false);
         container.add(helpPanel);
 
         helpTextArea = new JTextArea();
-        helpTextArea.setBounds(100,625,800,200);
+        helpTextArea.setBounds(100,710,800,200);
         helpTextArea.setFont(displayAreaFont);
         helpTextArea.setBackground(Color.CYAN);
         helpTextArea.setForeground(Color.BLACK);
         helpTextArea.setLineWrap(true);
-        helpTextArea.setBorder(line);
+
         helpTextArea.setOpaque(false);
-        helpTextArea.setText("This is only text");
 
         //add to display panel
         helpPanel.add(helpTextArea);
@@ -336,22 +365,22 @@ public class Gui {
 
     //function using user input
     public void startTheMove(){
-        String message = "This is just the test if the type writer works";
+        String message = "";
 
         String userInput = inputText.getText();
 
         String regex = "^[a-zA-Z]+$";
         if (userInput.matches(regex)){
-            setMessage("This is and Valid input.");
+            setMessage("This is and Valid input.",displayTextArea);
         }else{
-            setMessage("Doesn't make any sense! What are you trying to do");
+            setMessage("Doesn't make any sense! What are you trying to do?",displayTextArea);
         }
 
     }
 
-    public void setMessage(String message){
-
+    public void setMessage(String message,JTextArea displayTextArea){
         Typewriter typewriter = new Typewriter(displayTextArea, message);
+        typewriter.start();
 
     }
 
