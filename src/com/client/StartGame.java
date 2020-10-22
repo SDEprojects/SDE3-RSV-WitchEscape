@@ -1,4 +1,4 @@
-package com.game.client;
+package com.client;
 import com.gamewindow.Gui;
 
 import javax.swing.*;
