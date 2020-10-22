@@ -1,3 +1,5 @@
+package com.game;
+import com.util.XMLParser;
 import java.util.*;
 
 public class TheWorldInteraction {

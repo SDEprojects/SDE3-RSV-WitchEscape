@@ -234,7 +234,7 @@ public class Gui {
 //        gameWindow.setSize(1050,1000);//ORIGINAL
 //		gameWindow.setSize(1050, 600);
 //		gameWindow.setSize(Gui.MAP_IMAGE_WIDTH + 200, Gui.MAP_IMAGE_HEIGHT + 200);
-		gameWindow.setSize(1200, 600);
+		gameWindow.setSize(1000, 800);
 		gameWindow.setResizable(false);
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameWindow.getContentPane().setBackground(Color.BLACK);
@@ -292,10 +292,10 @@ public class Gui {
 		backgroundLabel.add(startPanel);
 
 		// buttons on start page
-		Dimension dimension = new Dimension(200, 300);
+		//Dimension dimension = new Dimension(200, 300);
 		startButton = new JButton(" START ");
 
-		startButton.setSize(dimension);
+
 		startButton.setFont(btnFont);
 		startButton.setOpaque(false);
 		startButton.setForeground(Color.BLACK);
