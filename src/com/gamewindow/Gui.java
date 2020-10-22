@@ -452,7 +452,7 @@ public class Gui {
 	}
 
 	public JLabel getCurrentLocationLabel() {
-		currentLocationLabel = new JLabel("     Current Location     ");
+		currentLocationLabel = new JLabel("     Current com.game.Location     ");
 		currentLocationLabel.setFont(displayNumberFont);
 		currentLocationLabel.setBackground(Color.gray);
 		currentLocationLabel.setForeground(Color.BLACK);

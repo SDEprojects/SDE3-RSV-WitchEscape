@@ -1,4 +1,7 @@
+package com.game;
+
 import java.util.*;
+import com.util.XMLParser;
 
 public class TheWorldInteraction {
     //store previous room
@@ -90,7 +93,7 @@ public class TheWorldInteraction {
         }
         promptIfStayedInTheSameRoom();
     }
-    //create a new room from the Location constructor
+    //create a new room from the com.game.Location constructor
     public void createCurrentRoom(String currentRoom) {
         for (int i = 0; i < world.size(); i++) {
             for (int j = 0; j < world.get(i).size(); j++) {
