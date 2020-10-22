@@ -1,17 +1,13 @@
 package com.gamewindow;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,14 +20,20 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
+import com.util.XMLParser;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import com.util.Typewriter;
+import com.game.TheWorldInteraction;
 
 public class Gui {
+
+	TheWorldInteraction world = new TheWorldInteraction();
+	XMLParser xmlParser = new XMLParser();
+	Set<String> itemsCollectedSet = new HashSet<>();
+
+	public static String userInput;
 
 	private static final Boolean USE_NEW_LAYOUT = true;
 	
@@ -100,15 +102,14 @@ public class Gui {
 			displayTextArea.setBackground(Color.CYAN);
 			displayTextArea.setForeground(Color.BLACK);
 			displayTextArea.setLineWrap(true);
-
-			displayTextArea.setText("Welcome, this is a test");
-
+			xmlParser.parser();
+			setMessage(xmlParser.gameIntro);
 		}
 		return displayTextArea;
 	}
 
 	public static JLabel displayCurrentLocation, currentItemsCollected;
-	private JTextField inputText;
+	public static JTextField inputText;
 	public static JTextArea displayTextArea;
 	Container container;
 
@@ -119,7 +120,7 @@ public class Gui {
 	public static final Font displayNumberFont = new Font("Rockwell", Font.BOLD, 18); // ORIGINAL
 
 	// instantiate the classes
-	private TitleScreen startScreen = new TitleScreen();
+	private GameScreen startScreen = new GameScreen();
 	private DisplayMap displayMap = new DisplayMap();
 	private HelpMessageDisplay helpMessageDisplay = new HelpMessageDisplay();
 	private ExecuteMove executeMove = new ExecuteMove();
@@ -136,17 +137,18 @@ public class Gui {
 			}
 //			helpPanel.setVisible(true);
 //			setMessage("This is the test if the type writer works and displays in jTextArea", helpTextArea);
-			setMessage("This is the test if the type writer works and displays in jTextArea", displayTextArea);
+			setMessage("This is the test if the type writer works and displays in jTextArea");
 		}
 	}
 
 	// Class to execute when start button is clicked
-	public class TitleScreen implements ActionListener {
+	public class GameScreen implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// create startScreen
 			createGameScreen();
-
+			world.start();
+			world.roomPrompt();
 		}
 	}
 
@@ -191,7 +193,7 @@ public class Gui {
 					isMapBeingShown = false;
 				}
 				// like an clicking enter button
-				startTheMove();
+				 startTheMove();
 				inputText.setText("");
 			}
 		}
@@ -315,6 +317,7 @@ public class Gui {
 	}
 
 	public void createGameScreen() {
+
 		// ---NEW CODE BEGIN
 		if (USE_NEW_LAYOUT) {
 			guiPlayPanel = new GuiPlayPanel(this);
@@ -335,11 +338,8 @@ public class Gui {
 		displayOutputPanel.setBorder(line);
 		displayOutputPanel.setBounds(100, 345, 800, 300);
 		container.add(displayOutputPanel); // adding to the container
-
-		// adding two panel side to side
-
 		// add to display panel
-		displayOutputPanel.add(getDisplayTextArea());
+		displayOutputPanel.add(displayTextArea);
 
 		sidePanel = new JPanel();
 		sidePanel.setBounds(100, 130, 800, 200);
@@ -387,6 +387,7 @@ public class Gui {
 
 		// add to display panel
 		helpPanel.add(helpTextArea);
+
 
 	}
 
@@ -466,40 +467,37 @@ public class Gui {
 	static Document document;
 
 	private GuiPlayPanel guiPlayPanel;
-	static {
-		try {
-			documentBuilder = documentBuilderFactory.newDocumentBuilder();
-			document = documentBuilder.parse(file);
-			document.getDocumentElement().normalize();
 
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			e.printStackTrace();
-		}
-	}
+
+//	// function using user input
+//	public void startTheMove() {
+//		startTheMove(inputText, displayTextArea);
+//	}
 
 	// function using user input
-	public void startTheMove() {
-		startTheMove(inputText, displayTextArea);
-	}
+	public  String startTheMove() {
 
-	// function using user input
-	public void startTheMove(JTextField inputText, JTextArea displayTextArea) {
 		String message = "";
 
-		String userInput = inputText.getText();
+		userInput = inputText.getText();
 
 		String regex = "^[a-zA-Z]+$";
-		if (userInput.matches(regex)) {
-			setMessage("This is and Valid input.", displayTextArea);
-		} else {
-			setMessage("Doesn't make any sense! What are you trying to do?", displayTextArea);
+		if (!userInput.matches(regex)) {
+			setMessage("Doesn't make any sense! What are you trying to do?");
+		}else{
+			userInput = userInput.toLowerCase();
+			String[] userInputArray = userInput.split(" ");
+			if(userInputArray[0].equals("open")){
+				world.open(userInputArray);
+				currentItemsCollected.setText(itemsCollectedSet.toString());
+			}
 		}
-
+		return userInput;
 	}
 
-	public void setMessage(String message, JTextArea displayTextArea) {
+	public static void setMessage(String message) {
 		Typewriter typewriter = new Typewriter(displayTextArea, message);
-		typewriter.start();
+		typewriter.startDisplay();
 
 	}
 

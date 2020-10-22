@@ -30,7 +30,7 @@ public class Typewriter {
         });
         timer.start();
     }
-    public void start(){
+    public void startDisplay(){
         jTextArea.setText(null);
         charIndex = 0;
 

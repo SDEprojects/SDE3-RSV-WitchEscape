@@ -1,6 +1,9 @@
 package com.game;
 
 import java.util.*;
+
+import com.gamewindow.Gui;
+import com.util.Typewriter;
 import com.util.XMLParser;
 
 public class TheWorldInteraction {
@@ -16,20 +19,23 @@ public class TheWorldInteraction {
     //Current inventory
     ArrayList<String> inventory = new ArrayList<>();
 
-    public void start() {
+    public  void start() {
         //parse the xml file
         XMLParser parser = new XMLParser();
         parser.parser();
         //output the game intro
+
         System.out.println(XMLParser.gameIntro);
         //start in the house
         currentRoom = "house";
         createCurrentRoom(currentRoom);
-        roomPrompt();
+       roomPrompt();
+
     }
 
     public void roomPrompt() {
         System.out.println("\n" + currentRoomObj.roomDescription+"\n");
+        Gui.setMessage(currentRoomObj.roomDescription);
         itemsAvailableForPickUp();
         System.out.println("\n" + currentRoomObj.question +"\n");
         String input = scanner.nextLine();
@@ -46,12 +52,16 @@ public class TheWorldInteraction {
     public void itemsAvailableForPickUp(){
         if(currentRoomObj.roomItems.size()==0){
             System.out.println("\nThere are no available items to pick up in this room");
+            Gui.setMessage("\nThere are no available items to pick up in this room");
         }
         else {
             System.out.println("\nYou can get the following items in this room: ");
+
             for (var item : currentRoomObj.roomItems) {
                 System.out.println("-"+item + " ");
             }
+            Gui.setMessage("\nYou can get the following items in this room: ");
+            Gui.setMessage(currentRoomObj.roomItems.toString());
         }
     }
     public void evaluateInput(String input) {
@@ -75,8 +85,10 @@ public class TheWorldInteraction {
         }
         String item = toChange.toLowerCase().replace("get", "").trim();
         inventory.add(item);
+        Gui.currentItemsCollected.setText(inventory.toString());
         currentRoomObj.roomItems.remove(item);
         promptIfStayedInTheSameRoom();
+
     }
 //open location
     public void open(String[] input) {
@@ -121,6 +133,11 @@ public class TheWorldInteraction {
                     }
                     //create the current location with all the parameters.
                     currentRoomObj = new Location(name, roomDescription, question, availableExits, roomItems, exitsTo, actionDescription);
+//                    Gui.displayCurrentLocation.setText(currentRoomObj.name);
+//                    Gui.setMessage(currentRoomObj.roomDescription);
+//                    Gui.setMessage((currentRoomObj.availableExits).toString());
+//                    Gui.setMessage((currentRoomObj.roomItems).toString());
+//                    Gui.setMessage((currentRoomObj.actionDescription).toString());
                 }
             }
         }

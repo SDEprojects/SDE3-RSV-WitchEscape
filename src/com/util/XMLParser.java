@@ -15,10 +15,10 @@ public class XMLParser {
         try{
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse((new File("src/locations.xml")));
+            Document document = builder.parse((new File("./Files/locations.xml")));
             document.getDocumentElement().normalize();
             //Store game Intro text
-            gameIntro=document.getDocumentElement().getElementsByTagName("gameintro").item(0).getTextContent().replaceAll("NL", "\n");
+            gameIntro=document.getElementsByTagName("gameintro").item(0).getTextContent();//.replaceAll("NL", "\n");
 
             //Get all locations in the document
             NodeList allLocations = document.getElementsByTagName("location");
