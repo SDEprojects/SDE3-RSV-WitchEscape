@@ -3,6 +3,7 @@
     <get>get, take</get>
     <open>open, go, unlock, explore</open>
     <trade>trade, switch, exchange, deal, swap</trade>
+    <fight>fight, combat, hit, kill</fight>
     <location>
         <name>house</name>
         <description type="house">You wake up to the sound of the church bell ringing.NLYour mother is baking bread on the stove, and rocking in a chair.NLYou get out of bed, and go to her.NL"They're coming for you," she says.NLShe hands you a bag, and says "Better pack your things and sneak out while you can.NLYou are in your house.NLGather your things and sneak away.</description>
@@ -10,13 +11,14 @@
         <exits>front door, window, back door, closet</exits>
         <items>frying pan, hammer</items>
         <frontdoordesc>You opened the door and villagers hit you with stones!NLYour health has decreased.</frontdoordesc>
-        <backdoordesc>You open the back door and are swarmed by zombies who rip you and your mother apart.</backdoordesc>
+        <backdoordesc>You open the back door.NLThere is the Zombie standing.NLYou have items that you can use to attack.NLWhat would you like to do?</backdoordesc>
         <windowdesc>You crawl through the window, evading villagers and zombies, and make it to the Market.</windowdesc>
         <closetdesc>You opened the closet, and find a necklace your mother gave you. You put it on.</closetdesc>
         <frontdoor>house</frontdoor>
         <backdoor>house</backdoor>
         <closet>house</closet>
         <window>market</window>
+        <backdoor>pier</backdoor>
     </location>
 
     <location>
@@ -31,6 +33,8 @@
         <shoeladyshop>shoeladyshop</shoeladyshop>
         <whichtoslaychurch>whichtoslaychurch</whichtoslaychurch>
         <whichwichsandwiches>shoeladyshop</whichwichsandwiches>
+
+
     </location>
 
 <!--    &lt;!&ndash; TEST!! TO BE DELETED!!!&ndash;&gt;-->

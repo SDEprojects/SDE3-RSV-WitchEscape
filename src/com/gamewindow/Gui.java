@@ -25,10 +25,12 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import com.game.TheWorldInteraction;
+import com.util.CombatEngine;
 import com.util.Typewriter;
 import com.util.XMLParser;
 
 public class Gui {
+
 	XMLParser xmlParser = new XMLParser();
 	TheWorldInteraction theWorldInteraction = new TheWorldInteraction();
 	public static Set<String> itemsCollectedSet = new HashSet<>();
@@ -56,7 +58,7 @@ public class Gui {
 
 
 
-	public JFrame gameWindow; // for main game window
+	public static JFrame gameWindow; // for main game window
 	JFrame mapFrame; // for displaying map
 	JPanel startPanel, displayOutputPanel, inputPanel, sidePanel, titlePanel, backgroundPanel, helpPanel,
 			mainMiddlePanel;
@@ -109,9 +111,10 @@ public class Gui {
 			displayTextArea.setLineWrap(true);
 
 			xmlParser.parser();
-			String message = xmlParser.gameIntro + "\n" +XMLParser.getTextContentByTagNameAndType("house", "description")
-					+"\n"+XMLParser.getTextContentByTagNameAndType("houseQuestion","question");
-			setMessage(message);
+			theWorldInteraction.start();
+//			String message = xmlParser.gameIntro + "\n" +XMLParser.getTextContentByTagNameAndType("house", "description")
+//					+"\n"+XMLParser.getTextContentByTagNameAndType("houseQuestion","question");
+//			setMessage(message);
 		}
 		return displayTextAreaScroll;
 	}
@@ -122,10 +125,10 @@ public class Gui {
 	Container container;
 
 	// Font and styling
-	public static final Font titleFont = new Font("Rockwell", Font.BOLD, 50); // ORIGINAL
-	public static final Font btnFont = new Font("Rockwell", Font.BOLD, 10); // ORIGINAL
-	public static final Font displayAreaFont = new Font("Rockwell", Font.ITALIC, 18); // ORIGINAL
-	public static final Font displayNumberFont = new Font("Rockwell", Font.BOLD, 18); // ORIGINAL
+	public static final Font titleFont = new Font("Times New Roman", Font.BOLD, 50); // ORIGINAL
+	public static final Font btnFont = new Font("Times New Roman", Font.BOLD, 10); // ORIGINAL
+	public static final Font displayAreaFont = new Font("Times New Roman", Font.ITALIC, 18); // ORIGINAL
+	public static final Font displayNumberFont = new Font("Times New Roman", Font.BOLD, 18); // ORIGINAL
 
 	// instantiate the classes
 	private GameScreen startScreen = new GameScreen();
@@ -240,7 +243,7 @@ public class Gui {
 		mapFrame.setVisible(true);
 	}
 
-	public Gui() {
+	public  Gui() {
 
 		// game window design
 		gameWindow = new JFrame("Witch Escape: Try to escape!");
@@ -490,28 +493,38 @@ public class Gui {
 //	}
 
 	// function using user input
-	public  String startTheMove() {
+	public  void startTheMove() {
 
 		String message = "";
 
-		userInput = inputText.getText();
-
+		userInput = inputText.getText(); //
+		String[] inputArray= userInput.split(" ");
 		String regex = "^[a-zA-Z]+$";
-		if (!userInput.matches(regex)) {
-			setMessage("Doesn't make any sense! What are you trying to do?");
-		}else{
-			userInput = userInput.toLowerCase();
-//			String[] userInputArray = userInput.split(" ");
-			currentItemsCollected.setText("frying pan");
-			displayCurrentLocation.setText("witch house");
-			theWorldInteraction.evaluateInput(userInput);
-			setMessage("What is the next you trying to do?");
+//		if (!userInput.matches(regex)) {
+//			setMessage("Doesn't make any sense! What are you trying to do?");
+		userInput = userInput.toLowerCase();
+
+		if(XMLParser.open.contains(inputArray[0])){
+				theWorldInteraction.open(inputArray);
+				displayCurrentLocation.setText(TheWorldInteraction.currentRoomObj.name);
+				currentItemsCollected.setText(TheWorldInteraction.inventory.toString());
+		}else if(XMLParser.get.contains(inputArray[0])){
+			theWorldInteraction.get(inputArray);
+			currentItemsCollected.setText(TheWorldInteraction.inventory.toString());
+
+		}else if(XMLParser.fight.contains(inputArray[0])){
+			if (TheWorldInteraction.currentRoomObj.name.equals("house")) {
+				CombatEngine.winner();
+				setMessage("You have killed enemy and took shortcut route to pier");
+			}
+			currentItemsCollected.setText(TheWorldInteraction.inventory.toString());
+		}
 
 
 
 		}
-		return userInput;
-	}
+
+
 
 	public static void setMessage(String message) {
 		Typewriter typewriter = new Typewriter(displayTextArea, message);

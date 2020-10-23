@@ -1,5 +1,6 @@
 package com.util;
 
+import com.game.TheWorldInteraction;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -13,6 +14,7 @@ public class XMLParser {
     public static List<String> get;
     public static List<String> open;
     public static List<String> trade;
+    public static List<String> fight;
 
     public void parser(){
         ArrayList<HashMap> location = new ArrayList<>();
@@ -29,13 +31,16 @@ public class XMLParser {
             //Store get synonyms
             String [] getArray = document.getDocumentElement().getElementsByTagName("get").item(0).getTextContent().split(", ");
             get = Arrays.asList(getArray);
-            System.out.println(get);
+            //System.out.println(get);
             //Store open synonyms
-            String [] openArray = document.getDocumentElement().getElementsByTagName("open").item(0).getTextContent().split(", ");
+            String [] openArray = document.getElementsByTagName("open").item(0).getTextContent().split(", ");
             open = Arrays.asList(openArray);
             //Store trade synonyms
             String [] tradeArray = document.getDocumentElement().getElementsByTagName("trade").item(0).getTextContent().split(", ");
             trade = Arrays.asList(tradeArray);
+
+            String[] fightArray = document.getElementsByTagName("fight").item(0).getTextContent().split(",");
+            fight = Arrays.asList(fightArray);
             //********---*******
             //Get all locations in the document
             NodeList allLocations = document.getElementsByTagName("location");

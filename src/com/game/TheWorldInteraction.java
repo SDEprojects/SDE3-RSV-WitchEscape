@@ -15,7 +15,7 @@ public class TheWorldInteraction {
     //Scanner
     Scanner scanner = new Scanner(System.in);
     //Current inventory
-    ArrayList<String> inventory = new ArrayList<>();
+    public static ArrayList<String> inventory = new ArrayList<>();
 
     public void start() {
         //parse the xml file
@@ -23,29 +23,35 @@ public class TheWorldInteraction {
         parser.parser();
         //output the game intro
          System.out.println(XMLParser.gameIntro);
-         //setMessage(XMLParser.gameIntro);
+
 
         //start in the house
         currentRoom = "house";
         createCurrentRoom(currentRoom);
-        roomPrompt();
+        String message = XMLParser.gameIntro + roomPrompt();
+        setMessage(message);
+
     }
 
-    public void roomPrompt() {
+    public String roomPrompt() {
+        String result= "";
         System.out.println("\n" + currentRoomObj.roomDescription+"\n");
         //setMessage(currentRoomObj.roomDescription+ "\n");
 
-        itemsAvailableForPickUp();
+        //itemsAvailableForPickUp();
         System.out.println("\n" + currentRoomObj.question +"\n");
         //setMessage(currentRoomObj.question + "\n");
         //String input = scanner.nextLine();
         //evaluateInput(input);
+        result = "\n" +currentRoomObj.roomDescription+ "\n" + currentRoomObj.question;
+        return result;
     }
 
     public void promptIfStayedInTheSameRoom(){
         System.out.println("\n Current items in your inventory: " + inventory);
         itemsAvailableForPickUp();
         System.out.println("\nYour next move: ");
+
         String input = scanner.nextLine();
         evaluateInput(input);
     }
@@ -86,10 +92,11 @@ public class TheWorldInteraction {
             currentRoomObj.roomItems.remove(item);
         }
         else{
+            setMessage("No such object exists");
             System.out.println("No such object exist");
         }
-
-        promptIfStayedInTheSameRoom();
+        setMessage(currentRoomObj.roomDescription+"\n"+ currentRoomObj.question);
+        //promptIfStayedInTheSameRoom();
     }
 //open location
     public void open(String[] input) {
@@ -100,11 +107,13 @@ public class TheWorldInteraction {
         String dir = direction.toLowerCase().replace(input[0], "").trim();
         System.out.println(dir);
         System.out.println(currentRoomObj.actionDescription.get(dir));
+        String displaymessage =  currentRoomObj.actionDescription.get(dir);
         if (!currentRoomObj.exitsTo.get(dir).equalsIgnoreCase(currentRoomObj.name)){
             createCurrentRoom(currentRoomObj.exitsTo.get(dir).toLowerCase());
             roomPrompt();
         }
-        promptIfStayedInTheSameRoom();
+        setMessage(displaymessage);
+        //promptIfStayedInTheSameRoom();
     }
     //create a new room from the Location constructor
     public void createCurrentRoom(String currentRoom) {
