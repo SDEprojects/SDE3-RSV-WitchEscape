@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class GuiBackgroundImageLabelPanel extends JPanel {
 
 	private Gui gui;
-	private JLabel backgroundLabel;
+	private JLabel backgroundImageLabel;
 
 	public GuiBackgroundImageLabelPanel(Gui gui) {
 
@@ -34,14 +34,14 @@ public class GuiBackgroundImageLabelPanel extends JPanel {
 		backgroundPanel.setBounds(0, 0, gameWindow.getWidth(), gameWindow.getHeight());
 
 		// background label design
-		backgroundLabel = new JLabel();
-		backgroundLabel.setSize(backgroundPanel.getWidth(), backgroundPanel.getHeight());
+		backgroundImageLabel = new JLabel();
+		backgroundImageLabel.setSize(backgroundPanel.getWidth(), backgroundPanel.getHeight());
 
 		// setting background image
 		ImageIcon backgroundImage = new ImageIcon(new ImageIcon(Gui.BACKGROUND_IMAGE_FILE_PATH).getImage()
-				.getScaledInstance(backgroundLabel.getWidth(), backgroundLabel.getHeight(), Image.SCALE_SMOOTH));
-		backgroundLabel.setIcon(backgroundImage);
-		backgroundPanel.add(backgroundLabel);
+				.getScaledInstance(backgroundImageLabel.getWidth(), backgroundImageLabel.getHeight(), Image.SCALE_SMOOTH));
+		backgroundImageLabel.setIcon(backgroundImage);
+		backgroundPanel.add(backgroundImageLabel);
 		return backgroundPanel;
 	}
 
@@ -50,9 +50,9 @@ public class GuiBackgroundImageLabelPanel extends JPanel {
 	}
 
 	protected void setToBackgroundLabel(Component comp) {
-		backgroundLabel.removeAll();
-		backgroundLabel.setLayout(new GridBagLayout());
-		backgroundLabel.add(comp);
+		backgroundImageLabel.removeAll();
+		backgroundImageLabel.setLayout(new GridBagLayout());
+		backgroundImageLabel.add(comp);
 	}
 
 }

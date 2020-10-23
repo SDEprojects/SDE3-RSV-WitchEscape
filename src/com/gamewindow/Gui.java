@@ -1,11 +1,15 @@
 package com.gamewindow;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,16 +19,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import com.game.TheWorldInteraction;
-import com.util.XMLParser;
 import com.util.Typewriter;
 import com.util.XMLParser;
-
-import com.game.TheWorldInteraction;
 
 public class Gui {
 	XMLParser xmlParser = new XMLParser();
@@ -41,6 +43,7 @@ public class Gui {
 	public static final String BACKGROUND_IMAGE_FILE_PATH = "./Files/backgroundImage.jpg";
 	
 	//Map Image details
+	public static final String MAP_SIZED_IMAGE_FILE_PATH = "./Files/mapSizedDummyImage.jpg";
 	public static final String MAP_IMAGE_FILE_PATH = "./Files/map.jpg";
 	public static final double MAP_SCALE_DOWN_PERCENT = 0.8;
 	public static final int MAP_IMAGE_WIDTH = (int) (800 * MAP_SCALE_DOWN_PERCENT);
@@ -48,6 +51,9 @@ public class Gui {
 
 	//Flag to indicate if the current view is map view.
 	private boolean isMapBeingShown = false;
+	private static final String HIDE_MAP_LABEL = "Hide Map";
+	private static final String SHOW_MAP_LABEL = "Show Map";
+
 
 
 	public JFrame gameWindow; // for main game window
@@ -87,15 +93,16 @@ public class Gui {
 		return currentItemsCollected;
 	}
 
-	public JTextArea getDisplayTextArea() {
+	public JScrollPane getDisplayTextArea() {
 		if (displayTextArea == null) {
-			displayTextArea = new JTextArea(10, 30);
+			displayTextArea = new JTextArea(20, 30);
 			displayTextArea.setEditable(false);
-//	        Typewriter typewriter1 = new Typewriter();
+			
+			//Add scrollbar
+			displayTextAreaScroll = new JScrollPane(displayTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			displayTextAreaScroll.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-			if (!USE_NEW_LAYOUT) {
-				displayTextArea.setBounds(100, 345, 800, 300);
-			}
 			displayTextArea.setFont(displayAreaFont);
 			displayTextArea.setBackground(Color.CYAN);
 			displayTextArea.setForeground(Color.BLACK);
@@ -106,7 +113,7 @@ public class Gui {
 					+"\n"+XMLParser.getTextContentByTagNameAndType("houseQuestion","question");
 			setMessage(message);
 		}
-		return displayTextArea;
+		return displayTextAreaScroll;
 	}
 
 	public static JLabel displayCurrentLocation, currentItemsCollected;
@@ -116,14 +123,13 @@ public class Gui {
 
 	// Font and styling
 	public static final Font titleFont = new Font("Rockwell", Font.BOLD, 50); // ORIGINAL
-	public static final Font btnFont = new Font("Rockwell", Font.BOLD, 18); // ORIGINAL
+	public static final Font btnFont = new Font("Rockwell", Font.BOLD, 10); // ORIGINAL
 	public static final Font displayAreaFont = new Font("Rockwell", Font.ITALIC, 18); // ORIGINAL
 	public static final Font displayNumberFont = new Font("Rockwell", Font.BOLD, 18); // ORIGINAL
 
 	// instantiate the classes
 	private GameScreen startScreen = new GameScreen();
 	private DisplayMap displayMap = new DisplayMap();
-	private HideMap hideMap = new HideMap();
 	private HelpMessageDisplay helpMessageDisplay = new HelpMessageDisplay();
 	private ExecuteMove executeMove = new ExecuteMove();
 	private InputTextFieldKeyAdapter enterKeyHandler = new InputTextFieldKeyAdapter();
@@ -135,11 +141,8 @@ public class Gui {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(isMapBeingShown) {
-				guiPlayPanel.hideMapPanel();
-				isMapBeingShown = false;
+				hideMap();
 			}
-//			helpPanel.setVisible(true);
-//			setMessage("This is the test if the type writer works and displays in jTextArea", helpTextArea);
 			setMessage("This is the test if the type writer works and displays in jTextArea");
 		}
 	}
@@ -159,39 +162,34 @@ public class Gui {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(isMapBeingShown==false) {
-				if (USE_NEW_LAYOUT ) {
-					isMapBeingShown = true;
-					guiPlayPanel.showMapPanel();
-				} else {
-					showMapSeparateWindow();
-				}
+			if(isMapBeingShown) {
+				hideMap();
+			}
+			else {
+				isMapBeingShown = true;
+				guiPlayPanel.showMapPanel();
+				mapButton.setText(HIDE_MAP_LABEL);
 			}
 		}
+
 	}
 
-	public class HideMap implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(isMapBeingShown==true) {
-				if (USE_NEW_LAYOUT ) {
-					isMapBeingShown = false;
-					guiPlayPanel.hideMapPanel();
-				}
-			}
-		}
+	/**
+	 * Hides the map.
+	 */
+	private void hideMap() {
+		isMapBeingShown = false;
+		guiPlayPanel.hideMapPanel();
+		mapButton.setText(SHOW_MAP_LABEL);
 	}
 	
-
 	// Class to execute with the click of EnterButton or pressing enter after typing
 	// in intputText
 	public class ExecuteMove implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(isMapBeingShown) {
-				guiPlayPanel.hideMapPanel();
-				isMapBeingShown = false;
+				hideMap();
 			}
 			startTheMove();
 			inputText.setText("");
@@ -205,8 +203,7 @@ public class Gui {
 			// when you enter after inputting commands in input text field
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				if(isMapBeingShown) {
-					guiPlayPanel.hideMapPanel();
-					isMapBeingShown = false;
+					hideMap();
 				}
 				// like an clicking enter button
 				 startTheMove();
@@ -355,7 +352,7 @@ public class Gui {
 		displayOutputPanel.setBounds(100, 345, 800, 300);
 		container.add(displayOutputPanel); // adding to the container
 		// add to display panel
-		displayOutputPanel.add(displayTextArea);
+		displayOutputPanel.add(getDisplayTextArea());//Always use 'getDisplayTextArea()', as it'll be initialized if NULL. 
 
 		sidePanel = new JPanel();
 		sidePanel.setBounds(100, 130, 800, 200);
@@ -422,14 +419,13 @@ public class Gui {
 
 	public JButton getMapButton() {
 		if (mapButton == null) {
-			mapButton = new JButton("Show Map");
+			mapButton = new JButton(SHOW_MAP_LABEL);
 			mapButton.setBorder(blueBorder);
 			mapButton.setFont(displayNumberFont);
 			mapButton.setBackground(Color.GRAY);
 			mapButton.setForeground(Color.BLACK);
 			mapButton.addActionListener(displayMap);
 
-			mapButton.addActionListener(hideMap);
 			mapButton.setFocusPainted(false);
 		}
 		return mapButton;
@@ -485,6 +481,7 @@ public class Gui {
 //	static Document document;
 
 	private GuiPlayPanel guiPlayPanel;
+	private JScrollPane displayTextAreaScroll;
 
 
 //	// function using user input

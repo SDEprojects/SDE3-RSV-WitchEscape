@@ -2,6 +2,7 @@ package com.gamewindow;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 
@@ -14,11 +15,14 @@ import javax.swing.border.Border;
 
 public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 
+	private static final String MAP_VIEW = "MAP_VIEW";
+	private static final String DISPLAY_TEXT_AREA_VIEW = "DISPLAY_TEXT_AREA_VIEW";
 	// panels to display current location and current items collected details.
 	public JLabel displayCurrentLocation, currentItemsCollected;
 	private JPanel mapPanel;
 	private JPanel mainPanel;
 	private JPanel centerPanel;
+	private JPanel displayTextAreaPanel;
 
 	/**
 	 * Constructor
@@ -40,17 +44,23 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setOpaque(false);
 
-		JPanel westP = getWestPanel();
-		JPanel southP = getSouthPanel();
-		JPanel centerPanel = getcenterPanelanel();
-
-		addMainPanelComponents(westP, southP, centerPanel);
 		displayTextArea();
 
 		return mainPanel;
 	}
 
-	private void addMainPanelComponents(JPanel westP, JPanel southP, JPanel centerPanel) {
+	private void addMainPanelComponents(String view) {
+		JPanel westP = getWestPanel();
+		JPanel southP = getSouthPanel();
+		JPanel centerPanel = getCenterPanel();
+		
+		centerPanel.removeAll();
+		if(MAP_VIEW.equals(view)) {
+			centerPanel.add(getMapPanel());
+		}else if(DISPLAY_TEXT_AREA_VIEW.equals(view)) {
+			centerPanel.add(getDisplayTextAreaPanel());
+		}
+		
 		mainPanel.removeAll();
 		mainPanel.add(westP, BorderLayout.WEST);
 		mainPanel.add(southP, BorderLayout.SOUTH);
@@ -61,9 +71,9 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 	/**
 	 * Creates and returns the center panel with display display.
 	 * 
-	 * @return centerPanelanel
+	 * @return centerPanel
 	 */
-	private JPanel getcenterPanelanel() {
+	private JPanel getCenterPanel() {
 		if (centerPanel == null) {
 			centerPanel = new JPanel();
 			centerPanel.setSize(Gui.MAP_IMAGE_WIDTH + 10, Gui.MAP_IMAGE_HEIGHT + 10);
@@ -75,13 +85,37 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 	}
 
 	/**
+	 * Creates and returns a panel with DisplayTextArea add to a background image
+	 * label containing a dummy image that is of size map.
+	 * 
+	 * @return
+	 */
+	private JPanel getDisplayTextAreaPanel() {
+
+		if (displayTextAreaPanel == null) {
+			displayTextAreaPanel = new JPanel();
+			displayTextAreaPanel.setSize(Gui.MAP_IMAGE_WIDTH, Gui.MAP_IMAGE_HEIGHT);
+
+			// image label design
+			JLabel imageLabel = new JLabel();
+
+			// setting image image
+			ImageIcon imageImage = new ImageIcon(new ImageIcon(Gui.MAP_SIZED_IMAGE_FILE_PATH).getImage()
+					.getScaledInstance(Gui.MAP_IMAGE_WIDTH, Gui.MAP_IMAGE_HEIGHT, Image.SCALE_SMOOTH));
+			imageLabel.setIcon(imageImage);
+			displayTextAreaPanel.add(imageLabel);
+			// Add DisplayTexArea to the image label
+			imageLabel.setLayout(new GridBagLayout());
+			imageLabel.add(getGui().getDisplayTextArea());
+		}
+		return displayTextAreaPanel;
+	}
+
+	/**
 	 * Adds the display text area to the center panel.
 	 */
 	private void displayTextArea() {
-		// add to panel
-		centerPanel.removeAll();
-		centerPanel.add(getGui().getDisplayTextArea());
-		getGui().revalidate();
+		addMainPanelComponents(DISPLAY_TEXT_AREA_VIEW);
 	}
 
 	/**
@@ -89,19 +123,17 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 	 */
 
 	public void showMapPanel() {
-		centerPanel.removeAll();
-		centerPanel.add(getMapPanel());
-		getGui().revalidate();
+		addMainPanelComponents(MAP_VIEW);
 	}
 
-	public void hideMapPanel(){
-		getMapPanel().setVisible(false);
-
-	}
 	/**
 	 * Hides the map panel and puts back the display text area.
 	 */
-
+	public void hideMapPanel() {
+		// DO NOT DO: getMapPanel().setVisible(false)
+		// displayTextArea() handles removal of map from the view.
+		displayTextArea();
+	}
 
 	/**
 	 * Creates and returns the south panel.
@@ -113,7 +145,7 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 		inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.LINE_AXIS));
 
 		inputPanel = new JPanel();
-		inputPanel.setBounds(100, 650, 800, 50);
+		inputPanel.setBounds(100, 650, 800, 800);
 		inputPanel.setLayout(new GridLayout(1, 3));
 
 		JLabel inputCommandLabel = new JLabel("    Go Where");
