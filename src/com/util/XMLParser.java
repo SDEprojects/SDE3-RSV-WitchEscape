@@ -52,6 +52,7 @@ public class XMLParser {
                     insideLocation.put("name", element.getElementsByTagName("name").item(0).getTextContent());
                     insideLocation.put("description", element.getElementsByTagName("description").item(0).getTextContent().replaceAll("NL", "\n"));
                     insideLocation.put("question", element.getElementsByTagName("question").item(0).getTextContent().replaceAll("NL", "\n"));
+                    insideLocation.put("challenge", element.getElementsByTagName("challenge").item(0).getTextContent());
                     insideLocation.put("items", element.getElementsByTagName("items").item(0).getTextContent());
                     insideLocation.put("exits", element.getElementsByTagName("exits").item(0).getTextContent());
                     List<String> exits  = Arrays.asList(insideLocation.get("exits").split(", "));
@@ -72,29 +73,4 @@ public class XMLParser {
         }
 
     }
-    public static String getTextContentByTagNameAndType(String attType, String tagName){
-        String result="";
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse((new File("./Files/locations.xml")));
-            document.getDocumentElement().normalize();
-            Node node=document.getElementsByTagName(tagName).item(0);
-            Element element= (Element) node;
-            if (element.getAttribute("type").equals(attType)){
-                result = element.getTextContent();
-                System.out.println(result);
-            }
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-
-
 }

@@ -3,91 +3,95 @@
     <get>get, take</get>
     <open>open, go, unlock, explore</open>
     <trade>trade, switch, exchange, deal, swap</trade>
-    <fight>fight, combat, hit, kill</fight>
+    <fight>fight, attack, hit, kill</fight>
+
     <location>
         <name>house</name>
-        <description type="house">You wake up to the sound of the church bell ringing.NLYour mother is baking bread on the stove, and rocking in a chair.NLYou get out of bed, and go to her.NL"They're coming for you," she says.NLShe hands you a bag, and says "Better pack your things and sneak out while you can.NLYou are in your house.NLGather your things and sneak away.</description>
-        <question type="houseQuestion">What would you like to do?NLOpen front doorNLOpen back doorNLOpen closetNLOpen window</question>
+        <description>You wake up to the sound of the church bell ringing.NLYour mother is baking bread on the stove, and rocking in a chair.NLYou get out of bed, and go to her.NL"They're coming for you," she says.NLShe hands you a bag, and says "Better pack your things and sneak out while you can.NLYou are in your house.NLGather your things and sneak away.</description>
+        <question>What would you like to do?NLOpen front doorNLOpen back doorNLOpen closetNLOpen window</question>
         <exits>front door, window, back door, closet</exits>
         <items>frying pan, hammer</items>
         <frontdoordesc>You opened the door and villagers hit you with stones!NLYour health has decreased.</frontdoordesc>
-        <backdoordesc>You open the back door.NLThere is the Zombie standing.NLYou have items that you can use to attack.NLWhat would you like to do?</backdoordesc>
+        <backdoordesc>You open the back door</backdoordesc>
         <windowdesc>You crawl through the window, evading villagers and zombies, and make it to the Market.</windowdesc>
         <closetdesc>You opened the closet, and find a necklace your mother gave you. You put it on.</closetdesc>
         <frontdoor>house</frontdoor>
-        <backdoor>house</backdoor>
         <closet>house</closet>
         <window>market</window>
-        <backdoor>pier</backdoor>
+        <challenge>none</challenge>
+        <backdoor>backdoor</backdoor>
+    </location>
+
+    <location>
+        <name>backdoor</name>
+        <description>You go through the back door. The door closes behind you. You see an zombie. The zombie is looking at you fiercely. </description>
+        <question>Would you like to open the back door to go back into the house or fight?</question>
+        <items></items>
+        <exits>back door</exits>
+        <backdoordesc>You decided to run and going back into the house</backdoordesc>
+        <backdoor>house</backdoor>
+        <challenge>zombie</challenge>
     </location>
 
     <location>
         <name>market</name>
         <description>You are now in Aris Market Square.</description>
-        <question>What area would you like to explore next?NLExplore WhichWich SandWichNLExplore Shoe Lady ShopNLExplore WhichToSlay Church"</question>
-        <exits>which wich sandwiches, shoe lady shop, whichtoslay church</exits>
+        <question>What area would you like to explore next?NLExplore Sandwich shopNLExplore Shoe Lady ShopNLExplore Church"</question>
+        <exits>sandwich shop, shoe lady shop, church</exits>
         <items></items>
-        <whichwichsandwichesdesc>You are in which wich sandiwch shop. You are tempted by food. Do not forget what's priority. Buy a sandwich or 3 piece of leather for hammer.;Enter 1 for trading hammer.;Enter 2 for trading for sandwich</whichwichsandwichesdesc>
-        <shoeladyshopdesc>You are now inside Shoe Lady's Shop.NLMake a deal with the lady to obtain your horse for the escape.NLYou must collect 3 pieces of leather to trade for the horse</shoeladyshopdesc>
-        <whichtoslaychurchdesc>You are now inside WhichToSlay Church.NLYou will be slayed</whichtoslaychurchdesc>
+        <sandwichshopdesc>Opening Sandwich Shop's door</sandwichshopdesc>
+        <shoeladyshopdesc>You are now inside Shoe Lady's Shop.</shoeladyshopdesc>
+        <churchdesc>You are opening church entrance door </churchdesc>
         <shoeladyshop>shoeladyshop</shoeladyshop>
-        <whichtoslaychurch>whichtoslaychurch</whichtoslaychurch>
-        <whichwichsandwiches>shoeladyshop</whichwichsandwiches>
-
-
+        <church>church</church>
+        <sandwichshop>sandwichshop</sandwichshop>
+        <challenge>none</challenge>
     </location>
 
-<!--    &lt;!&ndash; TEST!! TO BE DELETED!!!&ndash;&gt;-->
-<!--    <location>-->
-<!--        <name>market</name>-->
-<!--        <description>You are now in Aris Market Square.</description>-->
-<!--        <question>what do u want to do in the market</question>-->
-<!--        <exits>sandwich place, leather shop, church</exits>-->
-<!--        <churchdesc>You are now inside WhichToSlay Church.NLYou will be slayed</churchdesc>-->
-<!--        <sandwichplacedesc>You are in which wich sandiwch shop. You are tempted by food. Do not forget what's priority. Buy a sandwich or 3 piece of leather for hammer.NLEnter 1 for trading hammer.NLEnter 2 for trading for sandwich</sandwichplacedesc>-->
-<!--        <leathershopdesc>You are now inside Shoe Lady's Shop.NLMake a deal with the lady to obtain your horse for the escape.NLYou must collect 3 pieces of leather to trade for the horse</leathershopdesc>-->
-<!--        <sandwichplace>cafe</sandwichplace>-->
-<!--        <leathershop>leather</leathershop>-->
-<!--        <church>church</church>-->
-<!--    </location>-->
+    <location>
+        <name>sandwichshop</name>
+        <description>You are now inside Which Wich Sandwich shop. You are hungry, but don't forget your priority. </description>
+        <question></question>
+        <exits>market</exits>
+        <pierdesc>you are going to the pier</pierdesc>
+        <market>market</market>
+        <marketdesc>You are going back to the market</marketdesc>
+        <items></items>
+        <challenge>tradeHammerForLeatherOrSandwich</challenge>
+    </location>
 
-    <!-- TEST!! TO BE DELETED!!!-->
-<!--    <location>-->
-<!--        <name>pier</name>-->
-<!--        <description>you are in the market</description>-->
-<!--        <question>what do u want to do in the maket</question>-->
-<!--        <exits>sandwich place, leather shop</exits>-->
-<!--        <items></items>-->
-<!--        <sandwichplacedesc>you are in the sandwich place</sandwichplacedesc>-->
-<!--        <leathershopdesc>you are in the leather shop.</leathershopdesc>-->
-<!--        <sandwichplace>cafe</sandwichplace>-->
-<!--        <leathershop>leather</leathershop>-->
-<!--    </location>-->
+    <location>
+        <name>shoeladyshop</name>
+        <description>You are now inside the Shoe lady's shop</description>
+        <question></question>
+        <exits>market</exits>
+        <market>market</market>
+        <marketdesc>You are going back to the market</marketdesc>
+        <items></items>
+        <challenge>getTheHorse</challenge>
+    </location>
 
-<!--    <location>-->
-<!--        <name>pier</name>-->
-<!--        <description>you are in the market</description>-->
-<!--        <question>what do u want to do in the maket</question>-->
-<!--        <exits>sandwich place, leather shop</exits>-->
-<!--        <items></items>-->
-<!--        <sandwichplacedesc>you are in the sandwich place</sandwichplacedesc>-->
-<!--        <leathershopdesc>you are in the leather shop.</leathershopdesc>-->
-<!--        <sandwichplace>cafe</sandwichplace>-->
-<!--        <leathershop>leather</leathershop>-->
-<!--    </location>-->
-<!--    -->
-<!--    -->
+    <location>
+        <name>church</name>
+        <description>You see people looking at you. They know that you are a witch, they don't like it.</description>
+        <question></question>
+        <items>gold cross, broom</items>
+        <exits>market</exits>
+        <market>market</market>
+        <marketdesc>going to the market</marketdesc>
+        <churchdesc>You are now in church</churchdesc>
+        <challenge>surviveChurch</challenge>
+    </location>
 
-
-
-
-<!--    <location name="Pier">-->
-<!--        <boardwalk>You look around, you see the Ships on the pier and a group of sailors.;You see ships and wooden crates on the pier and the ale house down the boardwalk.;You're back on the pier, you see grain bags and ale kegs.;Still on the pier, you see the forest that heads back to the Market.;You survive, get the 3 pieces of leather and head back toward the Market.;Enter 1 to pick leather </boardwalk>-->
-<!--        <prompt>You see 3 ships on the Pier, there is a brown ship, a black ship and white ship.;Which one would you like to checkout? enter brown, or white, or black</prompt> &lt;!&ndash;What it prints when you enter the area for the first time.&ndash;&gt;-->
-<!--        <ship type="white">Trade your necklace to aboard and escape.;Enter 1 to trade</ship>-->
-<!--        <ship type="red">You end up in wrong ship! You are getting slayed</ship>-->
-<!--        <ship type="brown">There's portal.;You are not escaping, you are going back to where you started.</ship>-->
-<!--    </location>-->
-
+    <location>
+        <name>pier</name>
+        <description>You are now on the pier. You look around, you see the ships on the pier and a group of sailors.;You see ships and wooden crates on the pier and the ale house down the boardwalk.;You're back on the pier, you see grain bags and ale kegs.;Still on the pier, you see the forest that heads back to the Market.;You survive, get the 3 pieces of leather and head back toward the Market.;Enter 1 to pick leather </description>
+        <question>You see 3 ships on the Pier, there is a brown ship, a black ship and white ship.</question>
+        <items></items>
+        <challenge>ShipChallenge</challenge>
+        <exits>none</exits>
+        <nonedesc></nonedesc>
+        <none>pier</none>
+    </location>
 
 </locations>

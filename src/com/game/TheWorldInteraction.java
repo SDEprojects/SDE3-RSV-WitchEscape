@@ -32,7 +32,25 @@ public class TheWorldInteraction {
         setMessage(message);
 
     }
-
+    public void evaluateChallenge(){
+        switch(currentRoomObj.challenge){
+            case "zombie":
+                //method to fight zombie
+                break;
+            case "tradeHammerForLeatherOrSandwich":
+                //method to trade hammer for leather or sandwich
+                break;
+            case "getTheHorse":
+                //method to exchange leather or cross for horse or persuade shoe lady with the frying pan or cross
+                break;
+            case "surviveChurch":
+                //method to combat ppl in church with the frying pan
+                break;
+            case "ShipChallenge":
+                //method to pick a ship and then either go back to the house, die, or solve a riddle and escape
+                break;
+        }
+    }
     public String roomPrompt() {
         String result= "";
         System.out.println("\n" + currentRoomObj.roomDescription+"\n");
@@ -125,6 +143,7 @@ public class TheWorldInteraction {
                     String name = newMap.get("name");
                     String roomDescription = newMap.get("description");
                     String question = newMap.get("question");
+                    String challenge = newMap.get("challenge");
                     List<String> availableExits = Arrays.asList(newMap.get("exits").split(", "));
                     List<String> temp = Arrays.asList(newMap.get("items").split(", "));
                     List<String> roomItems = new ArrayList<>();
@@ -142,7 +161,7 @@ public class TheWorldInteraction {
                         actionDescription.put(exit, thisValue);
                     }
                     //create the current location with all the parameters.
-                    currentRoomObj = new Location(name, roomDescription, question, availableExits, roomItems, exitsTo, actionDescription);
+                    currentRoomObj = new Location(name, roomDescription, question,challenge, availableExits, roomItems, exitsTo, actionDescription);
                 }
             }
         }
