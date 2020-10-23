@@ -5,8 +5,8 @@
     <trade>trade, switch, exchange, deal, swap</trade>
     <location>
         <name>house</name>
-        <description>You wake up to the sound of the church bell ringing.NLYour mother is baking bread on the stove, and rocking in a chair.NLYou get out of bed, and go to her.NL"They're coming for you," she says.NLShe hands you a bag, and says "Better pack your things and sneak out while you can.NLYou are in your house.NLGather your things and sneak away.</description>
-        <question>What would you like to do?NLOpen front doorNLOpen back doorNLOpen closetNLOpen window</question>
+        <description type="house">You wake up to the sound of the church bell ringing.NLYour mother is baking bread on the stove, and rocking in a chair.NLYou get out of bed, and go to her.NL"They're coming for you," she says.NLShe hands you a bag, and says "Better pack your things and sneak out while you can.NLYou are in your house.NLGather your things and sneak away.</description>
+        <question type="houseQuestion">What would you like to do?NLOpen front doorNLOpen back doorNLOpen closetNLOpen window</question>
         <exits>front door, window, back door, closet</exits>
         <items>frying pan, hammer</items>
         <frontdoordesc>You opened the door and villagers hit you with stones!NLYour health has decreased.</frontdoordesc>

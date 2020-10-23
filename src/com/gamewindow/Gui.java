@@ -19,15 +19,17 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import com.game.TheWorldInteraction;
 import com.util.XMLParser;
 import com.util.Typewriter;
+import com.util.XMLParser;
+
 import com.game.TheWorldInteraction;
 
 public class Gui {
-
-	TheWorldInteraction world = new TheWorldInteraction();
 	XMLParser xmlParser = new XMLParser();
-	Set<String> itemsCollectedSet = new HashSet<>();
+	TheWorldInteraction theWorldInteraction = new TheWorldInteraction();
+	public static Set<String> itemsCollectedSet = new HashSet<>();
 
 	public static String userInput;
 
@@ -77,7 +79,7 @@ public class Gui {
 	 * @return
 	 */
 	public JLabel getCurrentItemsCollected() {
-		currentItemsCollected = new JLabel("CurrentItems...");
+		currentItemsCollected = new JLabel();
 		currentItemsCollected.setFont(displayNumberFont);
 		currentItemsCollected.setBackground(Color.gray);
 		currentItemsCollected.setForeground(Color.BLACK);
@@ -98,9 +100,11 @@ public class Gui {
 			displayTextArea.setBackground(Color.CYAN);
 			displayTextArea.setForeground(Color.BLACK);
 			displayTextArea.setLineWrap(true);
-			xmlParser.parser();
-			setMessage(xmlParser.gameIntro);
 
+			xmlParser.parser();
+			String message = xmlParser.gameIntro + "\n" +XMLParser.getTextContentByTagNameAndType("house", "description")
+					+"\n"+XMLParser.getTextContentByTagNameAndType("houseQuestion","question");
+			setMessage(message);
 		}
 		return displayTextArea;
 	}
@@ -119,9 +123,11 @@ public class Gui {
 	// instantiate the classes
 	private GameScreen startScreen = new GameScreen();
 	private DisplayMap displayMap = new DisplayMap();
+	private HideMap hideMap = new HideMap();
 	private HelpMessageDisplay helpMessageDisplay = new HelpMessageDisplay();
 	private ExecuteMove executeMove = new ExecuteMove();
 	private InputTextFieldKeyAdapter enterKeyHandler = new InputTextFieldKeyAdapter();
+
 
 	// Class to execute to display hidden helpPanel with instructions/commands with
 	// click of help button
@@ -144,8 +150,7 @@ public class Gui {
 		public void actionPerformed(ActionEvent e) {
 			// create startScreen
 			createGameScreen();
-//			world.start();
-//			world.roomPrompt();
+
 		}
 	}
 
@@ -154,12 +159,26 @@ public class Gui {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(USE_NEW_LAYOUT) {
-				isMapBeingShown = true;
-				guiPlayPanel.showMapPanel();
+			if(isMapBeingShown==false) {
+				if (USE_NEW_LAYOUT ) {
+					isMapBeingShown = true;
+					guiPlayPanel.showMapPanel();
+				} else {
+					showMapSeparateWindow();
+				}
 			}
-			else {
-				showMapSeparateWindow();
+		}
+	}
+
+	public class HideMap implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(isMapBeingShown==true) {
+				if (USE_NEW_LAYOUT ) {
+					isMapBeingShown = false;
+					guiPlayPanel.hideMapPanel();
+				}
 			}
 		}
 	}
@@ -409,6 +428,8 @@ public class Gui {
 			mapButton.setBackground(Color.GRAY);
 			mapButton.setForeground(Color.BLACK);
 			mapButton.addActionListener(displayMap);
+
+			mapButton.addActionListener(hideMap);
 			mapButton.setFocusPainted(false);
 		}
 		return mapButton;
@@ -441,7 +462,7 @@ public class Gui {
 	}
 
 	public JLabel getItemsCollectedLabel() {
-		itemsCollectedLabel = new JLabel("     Items collected     ");
+		itemsCollectedLabel = new JLabel("Items Collected");
 		itemsCollectedLabel.setFont(displayNumberFont);
 		itemsCollectedLabel.setBackground(Color.gray);
 		itemsCollectedLabel.setForeground(Color.BLACK);
@@ -450,7 +471,7 @@ public class Gui {
 	}
 
 	public JLabel getCurrentLocationLabel() {
-		currentLocationLabel = new JLabel("     Current com.game.Location     ");
+		currentLocationLabel = new JLabel("Current Location");
 		currentLocationLabel.setFont(displayNumberFont);
 		currentLocationLabel.setBackground(Color.gray);
 		currentLocationLabel.setForeground(Color.BLACK);
@@ -483,11 +504,14 @@ public class Gui {
 			setMessage("Doesn't make any sense! What are you trying to do?");
 		}else{
 			userInput = userInput.toLowerCase();
-			String[] userInputArray = userInput.split(" ");
-			if(userInputArray[0].equals("open")){
-				world.open(userInputArray);
-				currentItemsCollected.setText(itemsCollectedSet.toString());
-			}
+//			String[] userInputArray = userInput.split(" ");
+			currentItemsCollected.setText("frying pan");
+			displayCurrentLocation.setText("witch house");
+			theWorldInteraction.evaluateInput(userInput);
+			setMessage("What is the next you trying to do?");
+
+
+
 		}
 		return userInput;
 	}

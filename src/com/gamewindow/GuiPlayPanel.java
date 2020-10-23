@@ -94,12 +94,14 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 		getGui().revalidate();
 	}
 
+	public void hideMapPanel(){
+		getMapPanel().setVisible(false);
+
+	}
 	/**
 	 * Hides the map panel and puts back the display text area.
 	 */
-	public void hideMapPanel() {
-		displayTextArea();
-	}
+
 
 	/**
 	 * Creates and returns the south panel.

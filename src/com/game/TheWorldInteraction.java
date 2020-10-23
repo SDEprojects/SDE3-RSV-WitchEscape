@@ -1,4 +1,6 @@
 package com.game;
+import static com.gamewindow.Gui.setMessage;
+
 import com.util.XMLParser;
 import java.util.*;
 
@@ -6,9 +8,9 @@ public class TheWorldInteraction {
     //store previous room
     String previousRoom;
     //store name of the current room
-    String currentRoom;
+    public static String currentRoom;
     //store all the info for the current room
-    Location currentRoomObj;
+    public static Location currentRoomObj;
     static ArrayList<ArrayList> world = XMLParser.locations;
     //Scanner
     Scanner scanner = new Scanner(System.in);
@@ -21,6 +23,8 @@ public class TheWorldInteraction {
         parser.parser();
         //output the game intro
          System.out.println(XMLParser.gameIntro);
+         //setMessage(XMLParser.gameIntro);
+
         //start in the house
         currentRoom = "house";
         createCurrentRoom(currentRoom);
@@ -29,10 +33,13 @@ public class TheWorldInteraction {
 
     public void roomPrompt() {
         System.out.println("\n" + currentRoomObj.roomDescription+"\n");
+        //setMessage(currentRoomObj.roomDescription+ "\n");
+
         itemsAvailableForPickUp();
         System.out.println("\n" + currentRoomObj.question +"\n");
-        String input = scanner.nextLine();
-        evaluateInput(input);
+        //setMessage(currentRoomObj.question + "\n");
+        //String input = scanner.nextLine();
+        //evaluateInput(input);
     }
 
     public void promptIfStayedInTheSameRoom(){
@@ -43,13 +50,17 @@ public class TheWorldInteraction {
         evaluateInput(input);
     }
     public void itemsAvailableForPickUp(){
+
         if(currentRoomObj.roomItems.size()==0){
+
             System.out.println("\nThere are no available items to pick up in this room");
         }
         else {
             System.out.println("\nYou can get the following items in this room: ");
+            //setMessage("\nYou can get the following items in this room: ");
             for (var item : currentRoomObj.roomItems) {
-                System.out.println("-"+item + " ");
+                System.out.println(item);
+                //setMessage(currentRoomObj.roomItems.toString());
             }
         }
     }

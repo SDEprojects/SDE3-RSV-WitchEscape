@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Location {
-    String name;
-    String roomDescription;
-    String question;
+    public String name;
+    public String roomDescription;
+    public String question;
     List<String> availableExits;
     List<String> roomItems;
     HashMap<String, String> exitsTo;
