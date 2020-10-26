@@ -1,7 +1,8 @@
 package com.game;
+import static com.gamewindow.Gui.displayCurrentLocation;
 import static com.gamewindow.Gui.setMessage;
 
-import com.util.CombatEngine;
+import static com.util.CombatEngine.winner;
 import com.util.XMLParser;
 import java.util.*;
 
@@ -17,7 +18,7 @@ public class TheWorldInteraction {
     //Scanner
     Scanner scanner = new Scanner(System.in);
     //Current inventory
-    public  ArrayList<String> inventory = new ArrayList<>();
+    public static ArrayList<String> inventory = new ArrayList<>();
 
     public void start() {
         //parse the xml file
@@ -38,6 +39,12 @@ public class TheWorldInteraction {
         switch(currentRoomObj.challenge){
             case "zombie":
                 //combatEngine.winner();
+
+                if(winner().equals("player")){
+                    createCurrentRoom("pier");
+
+                    setMessage(roomPrompt());
+                }
                 break;
             case "tradeHammerForLeatherOrSandwich":
                 //method to trade hammer for leather or sandwich
@@ -170,9 +177,11 @@ public class TheWorldInteraction {
                     }
                     //create the current location with all the parameters.
                     currentRoomObj = new Location(name, roomDescription, question,challenge, availableExits, roomItems, exitsTo, actionDescription);
+
                 }
             }
         }
+        displayCurrentLocation.setText(currentRoomObj.name);
         //evaluateChallenge();
     }
 }

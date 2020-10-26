@@ -1,17 +1,14 @@
 package com.util;
 
-import java.awt.*;
+
 import java.util.Random;
-import com.game.TheWorldInteraction;
-import com.gamewindow.Gui;
-import com.gamewindow.Gui;
-
+import static com.game.TheWorldInteraction.inventory;
 import javax.swing.*;
-
+import com.gamewindow.Gui;
 import static com.gamewindow.Gui.setMessage;
 
 public class CombatEngine {
-    TheWorldInteraction theWorldInteraction = new TheWorldInteraction();
+    //TheWorldInteraction theWorldInteraction = new TheWorldInteraction();
 
     private static final int HAMMER_INDEX = 8;
     private static final int FRYING_PAN = 5;
@@ -25,10 +22,10 @@ public class CombatEngine {
         return number;
     }
 
-    private  void showDialogue(){
+    private  static void showDialogue(){
         if (winner.equals("player"))   {
             JOptionPane.showMessageDialog(Gui.gameWindow,"You have destroyed your enemy");
-            theWorldInteraction.createCurrentRoom("pier");
+            //theWorldInteraction.createCurrentRoom("pier");
         }else{
             JOptionPane.showMessageDialog(Gui.gameWindow," You are killed ! \n Game OVer!");
             System.exit(0);
@@ -43,16 +40,16 @@ public class CombatEngine {
     }
 
     // function to damage enemy based on scale 1 to 10
-    public  String winner() {
+    public  static String winner() {
 
         String selectWeapon1;
-        String selectWeapon = selectWeaponDialogue("Select the weapons from " + theWorldInteraction.inventory);
-        if (theWorldInteraction.inventory.size()>=2) {
+        String selectWeapon = selectWeaponDialogue("Select the weapons from " + inventory);
+        if (inventory.size()>=2) {
             while(destructiveIndex == 0){
                 if (selectWeapon.equals("frying pan")){
                     destructiveIndex = FRYING_PAN;
-                    theWorldInteraction.inventory.remove("frying pan");
-                    selectWeapon1= selectWeaponDialogue(" You have destroyed by \n"+ destructiveIndex*10 + "%, Select item from available inventory" + theWorldInteraction.inventory);
+                    inventory.remove("frying pan");
+                    selectWeapon1= selectWeaponDialogue(" You have destroyed by \n"+ destructiveIndex*10 + "%, Select item from available inventory" + inventory);
                     if (selectWeapon1.equals("hammer") | selectWeapon1.equals("fork")){
                         destructiveIndex =10;
                         winner = "player";
@@ -60,8 +57,8 @@ public class CombatEngine {
                     }
                 }else if(selectWeapon.equals("hammer")){
                     destructiveIndex = HAMMER_INDEX;
-                    theWorldInteraction.inventory.remove("hammer");
-                    selectWeapon1=selectWeaponDialogue(" You have destroyed by \n"+ destructiveIndex*10 + "%, Select item from available inventory" + theWorldInteraction.inventory);
+                    inventory.remove("hammer");
+                    selectWeapon1=selectWeaponDialogue(" You have destroyed by \n"+ destructiveIndex*10 + "%, Select item from available inventory" + inventory);
                     if (selectWeapon1.equals("frying pan")| selectWeapon1.equals("fork")){
                         destructiveIndex =10;
                         winner = "player";
@@ -69,8 +66,8 @@ public class CombatEngine {
                     }
                 }else if(selectWeapon.equals("fork")){
                     destructiveIndex = FORK_INDEX;
-                    theWorldInteraction.inventory.remove("fork");
-                    selectWeapon1 =selectWeaponDialogue(" You have destroyed by \n"+ destructiveIndex*10 + "%, Select item from available inventory" + theWorldInteraction.inventory);
+                    inventory.remove("fork");
+                    selectWeapon1 =selectWeaponDialogue(" You have destroyed by \n"+ destructiveIndex*10 + "%, Select item from available inventory" + inventory);
                     if (selectWeapon1.equals("hammer") | selectWeapon1.equals("frying pan")){
                         destructiveIndex =10;
                         winner = "player";

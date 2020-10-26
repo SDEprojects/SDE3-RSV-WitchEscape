@@ -516,12 +516,9 @@ public class Gui {
 
 
 		}else if(XMLParser.fight.contains(inputArray[0])){
-//			theWorldInteraction.evaluateChallenge();
-			if(combatEngine.winner().equals("player")){
-				theWorldInteraction.createCurrentRoom("pier");
-			}
-
+			theWorldInteraction.evaluateChallenge();
 			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
+
 		}
 
 
