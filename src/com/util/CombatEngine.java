@@ -11,6 +11,7 @@ import javax.swing.*;
 import static com.gamewindow.Gui.setMessage;
 
 public class CombatEngine {
+    TheWorldInteraction theWorldInteraction = new TheWorldInteraction();
 
     private static final int HAMMER_INDEX = 8;
     private static final int FRYING_PAN = 5;
@@ -24,10 +25,10 @@ public class CombatEngine {
         return number;
     }
 
-    private static void showDialogue(){
+    private  void showDialogue(){
         if (winner.equals("player"))   {
             JOptionPane.showMessageDialog(Gui.gameWindow,"You have destroyed your enemy");
-            TheWorldInteraction.createCurrentRoom("pier");
+            theWorldInteraction.createCurrentRoom("pier");
         }else{
             JOptionPane.showMessageDialog(Gui.gameWindow," You are killed ! \n Game OVer!");
             System.exit(0);
@@ -42,16 +43,16 @@ public class CombatEngine {
     }
 
     // function to damage enemy based on scale 1 to 10
-    public static String winner() {
+    public  String winner() {
 
         String selectWeapon1;
-        String selectWeapon = selectWeaponDialogue("Select the weapons from " + TheWorldInteraction.inventory);
-        if (TheWorldInteraction.inventory.size()>=2) {
+        String selectWeapon = selectWeaponDialogue("Select the weapons from " + theWorldInteraction.inventory);
+        if (theWorldInteraction.inventory.size()>=2) {
             while(destructiveIndex == 0){
                 if (selectWeapon.equals("frying pan")){
                     destructiveIndex = FRYING_PAN;
-                    TheWorldInteraction.inventory.remove("frying pan");
-                    selectWeapon1= selectWeaponDialogue(" You have destroyed by \n"+ destructiveIndex*10 + "%, Select item from available inventory" + TheWorldInteraction.inventory);
+                    theWorldInteraction.inventory.remove("frying pan");
+                    selectWeapon1= selectWeaponDialogue(" You have destroyed by \n"+ destructiveIndex*10 + "%, Select item from available inventory" + theWorldInteraction.inventory);
                     if (selectWeapon1.equals("hammer") | selectWeapon1.equals("fork")){
                         destructiveIndex =10;
                         winner = "player";
@@ -59,8 +60,8 @@ public class CombatEngine {
                     }
                 }else if(selectWeapon.equals("hammer")){
                     destructiveIndex = HAMMER_INDEX;
-                    TheWorldInteraction.inventory.remove("hammer");
-                    selectWeapon1=selectWeaponDialogue(" You have destroyed by \n"+ destructiveIndex*10 + "%, Select item from available inventory" + TheWorldInteraction.inventory);
+                    theWorldInteraction.inventory.remove("hammer");
+                    selectWeapon1=selectWeaponDialogue(" You have destroyed by \n"+ destructiveIndex*10 + "%, Select item from available inventory" + theWorldInteraction.inventory);
                     if (selectWeapon1.equals("frying pan")| selectWeapon1.equals("fork")){
                         destructiveIndex =10;
                         winner = "player";
@@ -68,8 +69,8 @@ public class CombatEngine {
                     }
                 }else if(selectWeapon.equals("fork")){
                     destructiveIndex = FORK_INDEX;
-                    TheWorldInteraction.inventory.remove("fork");
-                    selectWeapon1 =selectWeaponDialogue(" You have destroyed by \n"+ destructiveIndex*10 + "%, Select item from available inventory" + TheWorldInteraction.inventory);
+                    theWorldInteraction.inventory.remove("fork");
+                    selectWeapon1 =selectWeaponDialogue(" You have destroyed by \n"+ destructiveIndex*10 + "%, Select item from available inventory" + theWorldInteraction.inventory);
                     if (selectWeapon1.equals("hammer") | selectWeapon1.equals("frying pan")){
                         destructiveIndex =10;
                         winner = "player";

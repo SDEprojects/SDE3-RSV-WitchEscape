@@ -1,22 +1,23 @@
 package com.game;
 import static com.gamewindow.Gui.setMessage;
 
-import static com.util.CombatEngine.winner;
+import com.util.CombatEngine;
 import com.util.XMLParser;
 import java.util.*;
 
 public class TheWorldInteraction {
+
     //store previous room
     String previousRoom;
     //store name of the current room
-    public static String currentRoom;
+    public  String currentRoom;
     //store all the info for the current room
-    public static Location currentRoomObj;
+    public  Location currentRoomObj;
     static ArrayList<ArrayList> world = XMLParser.locations;
     //Scanner
     Scanner scanner = new Scanner(System.in);
     //Current inventory
-    public static ArrayList<String> inventory = new ArrayList<>();
+    public  ArrayList<String> inventory = new ArrayList<>();
 
     public void start() {
         //parse the xml file
@@ -36,8 +37,7 @@ public class TheWorldInteraction {
     public void evaluateChallenge(){
         switch(currentRoomObj.challenge){
             case "zombie":
-                winner();
-
+                //combatEngine.winner();
                 break;
             case "tradeHammerForLeatherOrSandwich":
                 //method to trade hammer for leather or sandwich
@@ -76,8 +76,8 @@ public class TheWorldInteraction {
         String input = scanner.nextLine();
         evaluateInput(input);
     }
-    public void itemsAvailableForPickUp(){
-
+    public String itemsAvailableForPickUp(){
+        String result="";
         if(currentRoomObj.roomItems.size()==0){
 
             System.out.println("\nThere are no available items to pick up in this room");
@@ -87,9 +87,13 @@ public class TheWorldInteraction {
             //setMessage("\nYou can get the following items in this room: ");
             for (var item : currentRoomObj.roomItems) {
                 System.out.println(item);
+                if(!inventory.contains(item)){
+                    result = currentRoomObj.roomItems.toString();
+                }
                 //setMessage(currentRoomObj.roomItems.toString());
             }
         }
+        return result;
     }
     public void evaluateInput(String inputIn) {
         String input = inputIn.toLowerCase();
@@ -109,14 +113,15 @@ public class TheWorldInteraction {
         }
         String item = toChange.toLowerCase().replace(input[0], "").trim();
         if (currentRoomObj.roomItems.contains(item)) {
-            inventory.add(item);
-            currentRoomObj.roomItems.remove(item);
+                inventory.add(item);
+                currentRoomObj.roomItems.remove(item);
+            setMessage(/*currentRoomObj.roomDescription+*/"\n"+ currentRoomObj.question + "\n or"+ "\nAvailable items to take: \n"+ currentRoomObj.roomItems);
         }
         else{
             setMessage("No such object exists");
             System.out.println("No such object exist");
         }
-        setMessage(/*currentRoomObj.roomDescription+*/"\n"+ currentRoomObj.question + "\n or"+ "\nAvailable items to take: \n"+ currentRoomObj.roomItems);
+
         //promptIfStayedInTheSameRoom();
     }
 //open location
@@ -133,11 +138,11 @@ public class TheWorldInteraction {
             createCurrentRoom(currentRoomObj.exitsTo.get(dir).toLowerCase());
             roomPrompt();
         }
-        setMessage(displaymessage);
+        setMessage(displaymessage+"\n"+ roomPrompt());
         //promptIfStayedInTheSameRoom();
     }
     //create a new room from the Location constructor
-    public static void createCurrentRoom(String currentRoom) {
+    public  void createCurrentRoom(String currentRoom) {
         for (int i = 0; i < world.size(); i++) {
             for (int j = 0; j < world.get(i).size(); j++) {
                 HashMap<String, String> newMap;
@@ -149,7 +154,7 @@ public class TheWorldInteraction {
                     String challenge = newMap.get("challenge");
                     List<String> availableExits = Arrays.asList(newMap.get("exits").split(", "));
                     List<String> temp = Arrays.asList(newMap.get("items").split(", "));
-                    List<String> roomItems = new ArrayList<>();
+                    List<String>roomItems = new ArrayList<>();
                     roomItems.addAll(temp);
                     HashMap<String, String> exitsTo = new HashMap<>();
                     HashMap<String, String> actionDescription = new HashMap<>();
@@ -170,5 +175,4 @@ public class TheWorldInteraction {
         }
         //evaluateChallenge();
     }
-
 }

@@ -33,6 +33,7 @@ public class Gui {
 
 	XMLParser xmlParser = new XMLParser();
 	TheWorldInteraction theWorldInteraction = new TheWorldInteraction();
+	CombatEngine combatEngine = new CombatEngine();
 	public static Set<String> itemsCollectedSet = new HashSet<>();
 
 	public static String userInput;
@@ -171,6 +172,7 @@ public class Gui {
 				isMapBeingShown = true;
 				guiPlayPanel.showMapPanel();
 				mapButton.setText(HIDE_MAP_LABEL);
+
 			}
 		}
 
@@ -495,7 +497,7 @@ public class Gui {
 	public  void startTheMove() {
 
 		String message = "";
-		TheWorldInteraction.createCurrentRoom("house");
+		//theWorldInteraction.createCurrentRoom("house");
 		userInput = inputText.getText(); //
 		String[] inputArray= userInput.split(" ");
 		String regex = "^[a-zA-Z]+$";
@@ -505,20 +507,21 @@ public class Gui {
 
 		if(XMLParser.open.contains(inputArray[0])){
 				theWorldInteraction.open(inputArray);
-				displayCurrentLocation.setText(TheWorldInteraction.currentRoomObj.name);
-				currentItemsCollected.setText(TheWorldInteraction.inventory.toString());
+				displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.name);
+				currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 		}else if(XMLParser.get.contains(inputArray[0])){
 			theWorldInteraction.get(inputArray);
 			//setMessage(TheWorldInteraction.currentRoomObj.question);
-			currentItemsCollected.setText(TheWorldInteraction.inventory.toString());
+			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
+
 
 		}else if(XMLParser.fight.contains(inputArray[0])){
 //			theWorldInteraction.evaluateChallenge();
-			if(CombatEngine.winner().equals("player")){
-				TheWorldInteraction.createCurrentRoom("pier");
+			if(combatEngine.winner().equals("player")){
+				theWorldInteraction.createCurrentRoom("pier");
 			}
 
-			currentItemsCollected.setText(TheWorldInteraction.inventory.toString());
+			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 		}
 
 
