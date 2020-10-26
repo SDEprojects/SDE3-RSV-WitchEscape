@@ -10,7 +10,7 @@
         <description>You wake up to the sound of the church bell ringing.NLYour mother is baking bread on the stove, and rocking in a chair.NLYou get out of bed, and go to her.NL"They're coming for you," she says.NLShe hands you a bag, and says "Better pack your things and sneak out while you can.NLYou are in your house.NLGather your things and sneak away.</description>
         <question>What would you like to do?NLOpen front doorNLOpen back doorNLOpen closetNLOpen window</question>
         <exits>front door, window, back door, closet</exits>
-        <items>frying pan, hammer</items>
+        <items>frying pan, hammer, fork</items>
         <frontdoordesc>You opened the door and villagers hit you with stones!NLYour health has decreased.</frontdoordesc>
         <backdoordesc>You open the back door</backdoordesc>
         <windowdesc>You crawl through the window, evading villagers and zombies, and make it to the Market.</windowdesc>

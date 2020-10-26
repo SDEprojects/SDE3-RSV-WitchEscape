@@ -112,9 +112,8 @@ public class Gui {
 
 			xmlParser.parser();
 			theWorldInteraction.start();
-//			String message = xmlParser.gameIntro + "\n" +XMLParser.getTextContentByTagNameAndType("house", "description")
-//					+"\n"+XMLParser.getTextContentByTagNameAndType("houseQuestion","question");
-//			setMessage(message);
+			//theWorldInteraction.evaluateChallenge();
+//
 		}
 		return displayTextAreaScroll;
 	}
@@ -496,7 +495,7 @@ public class Gui {
 	public  void startTheMove() {
 
 		String message = "";
-
+		TheWorldInteraction.createCurrentRoom("house");
 		userInput = inputText.getText(); //
 		String[] inputArray= userInput.split(" ");
 		String regex = "^[a-zA-Z]+$";
@@ -510,13 +509,15 @@ public class Gui {
 				currentItemsCollected.setText(TheWorldInteraction.inventory.toString());
 		}else if(XMLParser.get.contains(inputArray[0])){
 			theWorldInteraction.get(inputArray);
+			//setMessage(TheWorldInteraction.currentRoomObj.question);
 			currentItemsCollected.setText(TheWorldInteraction.inventory.toString());
 
 		}else if(XMLParser.fight.contains(inputArray[0])){
-			if (TheWorldInteraction.currentRoomObj.name.equals("house")) {
-				CombatEngine.winner();
-				setMessage("You have killed enemy and took shortcut route to pier");
+//			theWorldInteraction.evaluateChallenge();
+			if(CombatEngine.winner().equals("player")){
+				TheWorldInteraction.createCurrentRoom("pier");
 			}
+
 			currentItemsCollected.setText(TheWorldInteraction.inventory.toString());
 		}
 

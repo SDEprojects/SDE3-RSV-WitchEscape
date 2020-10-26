@@ -1,6 +1,7 @@
 package com.game;
 import static com.gamewindow.Gui.setMessage;
 
+import static com.util.CombatEngine.winner;
 import com.util.XMLParser;
 import java.util.*;
 
@@ -35,7 +36,8 @@ public class TheWorldInteraction {
     public void evaluateChallenge(){
         switch(currentRoomObj.challenge){
             case "zombie":
-                //method to fight zombie
+                winner();
+
                 break;
             case "tradeHammerForLeatherOrSandwich":
                 //method to trade hammer for leather or sandwich
@@ -45,6 +47,7 @@ public class TheWorldInteraction {
                 break;
             case "surviveChurch":
                 //method to combat ppl in church with the frying pan
+
                 break;
             case "ShipChallenge":
                 //method to pick a ship and then either go back to the house, die, or solve a riddle and escape
@@ -61,7 +64,7 @@ public class TheWorldInteraction {
         //setMessage(currentRoomObj.question + "\n");
         //String input = scanner.nextLine();
         //evaluateInput(input);
-        result = "\n" +currentRoomObj.roomDescription+ "\n" + currentRoomObj.question;
+        result = "\n" +currentRoomObj.roomDescription+ "\n" + currentRoomObj.question +"\n or"+ "\nAvailable items to take: \n"+ currentRoomObj.roomItems;
         return result;
     }
 
@@ -113,7 +116,7 @@ public class TheWorldInteraction {
             setMessage("No such object exists");
             System.out.println("No such object exist");
         }
-        setMessage(currentRoomObj.roomDescription+"\n"+ currentRoomObj.question);
+        setMessage(/*currentRoomObj.roomDescription+*/"\n"+ currentRoomObj.question + "\n or"+ "\nAvailable items to take: \n"+ currentRoomObj.roomItems);
         //promptIfStayedInTheSameRoom();
     }
 //open location
@@ -134,7 +137,7 @@ public class TheWorldInteraction {
         //promptIfStayedInTheSameRoom();
     }
     //create a new room from the Location constructor
-    public void createCurrentRoom(String currentRoom) {
+    public static void createCurrentRoom(String currentRoom) {
         for (int i = 0; i < world.size(); i++) {
             for (int j = 0; j < world.get(i).size(); j++) {
                 HashMap<String, String> newMap;
@@ -165,6 +168,7 @@ public class TheWorldInteraction {
                 }
             }
         }
+        //evaluateChallenge();
     }
 
 }
