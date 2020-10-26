@@ -26,7 +26,7 @@ import javax.swing.border.Border;
 
 import com.game.TheWorldInteraction;
 import com.util.CombatEngine;
-import com.util.Typewriter;
+import com.util.CharacterDisplay;
 import com.util.XMLParser;
 
 public class Gui {
@@ -528,7 +528,7 @@ public class Gui {
 
 
 	public static void setMessage(String message) {
-		Typewriter typewriter = new Typewriter(displayTextArea, message);
+		CharacterDisplay typewriter = new CharacterDisplay(displayTextArea, message);
 		typewriter.startDisplay();
 
 	}

@@ -6,14 +6,14 @@ import java.awt.event.ActionListener;
 import java.util.stream.Stream;
 
 import static com.gamewindow.Gui.displayTextArea;
-public class Typewriter {
+public class CharacterDisplay {
 
     private int charIndex = 0;
     private JTextArea jTextArea;
     private String text;
     private Timer timer;
     // function to display string one character at a time, as a type writer effect
-    public  Typewriter(JTextArea jTextArea, String text) {
+    public CharacterDisplay(JTextArea jTextArea, String text) {
         this.jTextArea = jTextArea;
         this.text = text;
          timer = new Timer(10,new ActionListener(){

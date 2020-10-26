@@ -39,10 +39,8 @@ public class TheWorldInteraction {
         switch(currentRoomObj.challenge){
             case "zombie":
                 //combatEngine.winner();
-
                 if(winner().equals("player")){
                     createCurrentRoom("pier");
-
                     setMessage(roomPrompt());
                 }
                 break;
@@ -71,7 +69,7 @@ public class TheWorldInteraction {
         //setMessage(currentRoomObj.question + "\n");
         //String input = scanner.nextLine();
         //evaluateInput(input);
-        result = "\n" +currentRoomObj.roomDescription+ "\n" + currentRoomObj.question +"\n or"+ "\nAvailable items to take: \n"+ currentRoomObj.roomItems;
+        result = "\n" +currentRoomObj.roomDescription+ "\n" + currentRoomObj.question +"\n or"+ itemsAvailableForPickUp();
         return result;
     }
 
@@ -88,14 +86,17 @@ public class TheWorldInteraction {
         if(currentRoomObj.roomItems.size()==0){
 
             System.out.println("\nThere are no available items to pick up in this room");
+            result= "There are no available items to pick up in this room";
         }
         else {
             System.out.println("\nYou can get the following items in this room: ");
+            String message = "\nYou can get the following items in this room: ";
             //setMessage("\nYou can get the following items in this room: ");
             for (var item : currentRoomObj.roomItems) {
                 System.out.println(item);
                 if(!inventory.contains(item)){
-                    result = currentRoomObj.roomItems.toString();
+                    result = message+ "\n"+ currentRoomObj.roomItems.toString();
+
                 }
                 //setMessage(currentRoomObj.roomItems.toString());
             }
@@ -122,7 +123,7 @@ public class TheWorldInteraction {
         if (currentRoomObj.roomItems.contains(item)) {
                 inventory.add(item);
                 currentRoomObj.roomItems.remove(item);
-            setMessage(/*currentRoomObj.roomDescription+*/"\n"+ currentRoomObj.question + "\n or"+ "\nAvailable items to take: \n"+ currentRoomObj.roomItems);
+            setMessage(/*currentRoomObj.roomDescription+*/"\n"+ currentRoomObj.question + "\n or"+ itemsAvailableForPickUp());
         }
         else{
             setMessage("No such object exists");
