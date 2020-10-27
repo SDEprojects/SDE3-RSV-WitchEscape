@@ -1,7 +1,11 @@
 package com.gamewindow;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics2D;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -79,12 +83,30 @@ public class GuiUtil {
 	}
 
 	/**
+	 * 
+	 * @param original
+	 * @param width
+	 * @param height
+	 * @return
+	 */
+	public static BufferedImage scaleImage(BufferedImage original, int width, int height) {
+		BufferedImage resized = new BufferedImage(width, height, original.getType());
+		Graphics2D g = resized.createGraphics();
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+		    RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g.drawImage(original, 0, 0, width, height, 0, 0, original.getWidth(),
+		    original.getHeight(), null);
+		g.dispose();
+		return resized;
+	}
+
+	/**
 	 * Creates BufferedImage based on the given path.
 	 * 
 	 * @param path
 	 * @return
 	 */
-	public static BufferedImage getBufferedImage(String path) {
+	public static BufferedImage getBufferedImageFromResourcePath(String path) {
 		try {
 			java.net.URL imgURL = GuiUtil.class.getResource(path);
 			if (imgURL != null) {
@@ -98,5 +120,34 @@ public class GuiUtil {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * Creates and returns a panel with a background image
+	 * label containing a dummy image that is of size map.
+	 * @param comp 
+	 * @param width 
+	 * @param height 
+	 * @param filePath 
+	 * 
+	 * @return
+	 */
+	public static JPanel createImageSizePanel(Component comp, int width, int height, String filePath) {
+	
+		JPanel textAreaPanel = new JPanel();
+		textAreaPanel.setSize(width, height);
+	
+		// image label design
+		JLabel imageLabel = new JLabel();
+	
+		// setting image image
+		ImageIcon imageImage = new ImageIcon(new ImageIcon(filePath).getImage()
+				.getScaledInstance(width, height, Image.SCALE_SMOOTH));
+		imageLabel.setIcon(imageImage);
+		textAreaPanel.add(imageLabel);
+		// Add DisplayTexArea to the image label
+		imageLabel.setLayout(new GridBagLayout());
+		imageLabel.add(comp);
+		return textAreaPanel;
 	}
 }

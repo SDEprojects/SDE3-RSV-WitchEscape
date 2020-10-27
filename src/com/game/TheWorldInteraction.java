@@ -1,8 +1,9 @@
 package com.game;
-import static com.gamewindow.Gui.displayCurrentLocation;
 import static com.gamewindow.Gui.setMessage;
 
 import static com.util.CombatEngine.winner;
+
+import com.gamewindow.Gui;
 import com.util.XMLParser;
 import java.util.*;
 
@@ -182,7 +183,8 @@ public class TheWorldInteraction {
                 }
             }
         }
-        displayCurrentLocation.setText(currentRoomObj.name);
+        Gui.setCurrentLocation(currentRoomObj.name);
+//        displayCurrentLocation.setText(currentRoomObj.name);
         //evaluateChallenge();
     }
 }

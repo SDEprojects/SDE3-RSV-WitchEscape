@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import java.util.stream.Stream;
 
-import static com.gamewindow.Gui.displayTextArea;
 public class CharacterDisplay {
 
     private int charIndex = 0;

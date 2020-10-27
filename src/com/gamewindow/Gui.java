@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -25,12 +23,14 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import com.game.TheWorldInteraction;
-import com.util.CombatEngine;
 import com.util.CharacterDisplay;
+import com.util.CombatEngine;
 import com.util.XMLParser;
 
 public class Gui {
+	static {
 
+	}
 	XMLParser xmlParser = new XMLParser();
 	TheWorldInteraction theWorldInteraction = new TheWorldInteraction();
 	CombatEngine combatEngine = new CombatEngine();
@@ -38,35 +38,32 @@ public class Gui {
 
 	public static String userInput;
 
-	private static final Boolean USE_NEW_LAYOUT = true;
-	
 	public static final Border blueBorder = BorderFactory.createLineBorder(Color.BLUE);
 	public static final Border redBorder = BorderFactory.createLineBorder(Color.RED);
 
 	public static final String BACKGROUND_IMAGE_FILE_PATH = "./Files/backgroundImage.jpg";
 	
-	//Map Image details
-	public static final String MAP_SIZED_IMAGE_FILE_PATH = "./Files/mapSizedDummyImage.jpg";
-	public static final String MAP_IMAGE_FILE_PATH = "./Files/map.jpg";
-	public static final double MAP_SCALE_DOWN_PERCENT = 0.8;
-	public static final int MAP_IMAGE_WIDTH = (int) (800 * MAP_SCALE_DOWN_PERCENT);
-	public static final int MAP_IMAGE_HEIGHT = (int) (600 * MAP_SCALE_DOWN_PERCENT);
-
 	//Flag to indicate if the current view is map view.
 	private boolean isMapBeingShown = false;
+	private boolean isHelpBeingShown = false;
+	
+	//Mapp Button Labels
 	private static final String HIDE_MAP_LABEL = "Hide Map";
 	private static final String SHOW_MAP_LABEL = "Show Map";
+	//Help Button Labels
+	private static final String HIDE_HELP_LABEL = "Hide Help";
+	private static final String SHOW_HELP_LABEL = "Show Help";
 
 
 
 	public static JFrame gameWindow; // for main game window
-	JFrame mapFrame; // for displaying map
-	JPanel startPanel, displayOutputPanel, inputPanel, sidePanel, titlePanel, backgroundPanel, helpPanel,
+	private JFrame mapFrame; // for displaying map
+	private JPanel startPanel, displayOutputPanel, inputPanel, sidePanel, titlePanel, backgroundPanel, helpPanel,
 			mainMiddlePanel;
-	JButton startButton, mapButton, helpButton, enterButton;
-	JLabel currentLocationLabel, itemsCollectedLabel, inputCommandLabel, titleLabel, backgroundLabel;
-	ImageIcon backgroundImage;
-	JTextArea helpTextArea;
+	private JButton startButton, mapButton, helpButton, enterButton;
+	private JLabel currentLocationLabel, itemsCollectedLabel, inputCommandLabel, titleLabel, backgroundLabel;
+	private ImageIcon backgroundImage;
+	private static JTextArea helpTextArea;
 
 	/**
 	 * Creates and returns displayCurrentLocation label.
@@ -97,19 +94,13 @@ public class Gui {
 	}
 
 	public JScrollPane getDisplayTextArea() {
+		JScrollPane displayTextAreaScroll = null;
 		if (displayTextArea == null) {
 			displayTextArea = new JTextArea(20, 30);
-			displayTextArea.setEditable(false);
-			
-			//Add scrollbar
-			displayTextAreaScroll = new JScrollPane(displayTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-			displayTextAreaScroll.setAlignmentX(Component.CENTER_ALIGNMENT);
+			setTextAreaDisplayProperties(displayTextArea);
 
-			displayTextArea.setFont(displayAreaFont);
-			displayTextArea.setBackground(Color.CYAN);
-			displayTextArea.setForeground(Color.BLACK);
-			displayTextArea.setLineWrap(true);
+			//Add scrollbar
+			displayTextAreaScroll = createScrollPane(displayTextArea);
 
 			xmlParser.parser();
 			theWorldInteraction.start();
@@ -119,9 +110,44 @@ public class Gui {
 		return displayTextAreaScroll;
 	}
 
-	public static JLabel displayCurrentLocation, currentItemsCollected;
+	private void setTextAreaDisplayProperties(JTextArea textArea) {
+		textArea.setEditable(false);
+		textArea.setFont(displayAreaFont);
+		textArea.setBackground(Color.CYAN);
+		textArea.setForeground(Color.BLACK);
+		textArea.setLineWrap(true);
+	}
+	
+	public JScrollPane getHelpTextArea() {
+		JScrollPane helpTextAreaScroll = null;
+		if (helpTextArea == null) {
+			helpTextArea = new JTextArea(20, 30);
+			setTextAreaDisplayProperties(helpTextArea);
+			
+			//Add scrollbar
+			helpTextAreaScroll = createScrollPane(helpTextArea);
+		}
+		return helpTextAreaScroll;
+	}
+
+	/**
+	 * Returns Scrollpane with the given view component.
+	 * 
+	 * @param view
+	 * @return
+	 */
+	private JScrollPane createScrollPane(Component view) {
+		JScrollPane helpTextAreaScroll;
+		helpTextAreaScroll = new JScrollPane(view, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		helpTextAreaScroll.setAlignmentX(Component.CENTER_ALIGNMENT);
+		return helpTextAreaScroll;
+	}
+
+	private static JLabel displayCurrentLocation;
+	public static JLabel currentItemsCollected;
 	public static JTextField inputText;
-	public static JTextArea displayTextArea;
+	private static JTextArea displayTextArea;
 	Container container;
 
 	// Font and styling
@@ -129,6 +155,7 @@ public class Gui {
 	public static final Font btnFont = new Font("Times New Roman", Font.BOLD, 10); // ORIGINAL
 	public static final Font displayAreaFont = new Font("Times New Roman", Font.ITALIC, 18); // ORIGINAL
 	public static final Font displayNumberFont = new Font("Times New Roman", Font.BOLD, 18); // ORIGINAL
+	
 
 	// instantiate the classes
 	private GameScreen startScreen = new GameScreen();
@@ -143,10 +170,18 @@ public class Gui {
 	public class HelpMessageDisplay implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(isMapBeingShown) {
-				hideMap();
+			if(isHelpBeingShown) {
+				displayTextArea();
 			}
-			setMessage("This is the test if the type writer works and displays in jTextArea");
+			else {
+				isHelpBeingShown = true;
+				showHelpPanel();
+				setHelpMessage("This is the test if the type writer works and displays in jTextArea");
+				helpButton.setText(HIDE_HELP_LABEL);
+			}
+			
+//			showHelpPanel();
+//			setHelpMessage("This is the test if the type writer works and displays in jTextArea");
 		}
 	}
 
@@ -156,7 +191,6 @@ public class Gui {
 		public void actionPerformed(ActionEvent e) {
 			// create startScreen
 			createGameScreen();
-
 		}
 	}
 
@@ -166,25 +200,49 @@ public class Gui {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(isMapBeingShown) {
-				hideMap();
+				displayTextArea();
 			}
 			else {
 				isMapBeingShown = true;
-				guiPlayPanel.showMapPanel();
+				showMapPanel();
 				mapButton.setText(HIDE_MAP_LABEL);
-
 			}
 		}
+	}
 
+	
+	/**
+	 * Shows the map.
+	 */
+	public void showMapPanel() {
+		isHelpBeingShown = false;
+		helpButton.setText(SHOW_HELP_LABEL);
+
+		guiPlayPanel.showMapPanel();
 	}
 
 	/**
 	 * Hides the map.
 	 */
-	private void hideMap() {
+	private void displayTextArea() {
 		isMapBeingShown = false;
-		guiPlayPanel.hideMapPanel();
 		mapButton.setText(SHOW_MAP_LABEL);
+
+		isHelpBeingShown = false;
+		helpButton.setText(SHOW_HELP_LABEL);
+		
+		guiPlayPanel.displayTextArea();
+	}
+	
+	
+	/**
+	 * Shows the help text area.
+	 */
+	private void showHelpPanel() {
+		isMapBeingShown = false;
+		mapButton.setText(SHOW_MAP_LABEL);
+
+		guiPlayPanel.showHelpPanel();
 	}
 	
 	// Class to execute with the click of EnterButton or pressing enter after typing
@@ -192,9 +250,7 @@ public class Gui {
 	public class ExecuteMove implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(isMapBeingShown) {
-				hideMap();
-			}
+			displayTextArea();
 			startTheMove();
 			inputText.setText("");
 		}
@@ -206,42 +262,12 @@ public class Gui {
 		public void keyPressed(KeyEvent e) {
 			// when you enter after inputting commands in input text field
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-				if(isMapBeingShown) {
-					hideMap();
-				}
+				displayTextArea();
 				// like an clicking enter button
 				 startTheMove();
 				inputText.setText("");
 			}
 		}
-	}
-
-	private void showMapSeparateWindow() {
-
-		// Design a map window
-		mapFrame = new JFrame();
-		mapFrame.setSize(600, 600);
-		mapFrame.setResizable(false);
-		mapFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		mapFrame.getContentPane().setBackground(Color.BLACK);
-		mapFrame.setLayout(null);
-
-		Container mapContainer = mapFrame.getContentPane();
-
-		// background panel design
-		JPanel mapPanel = new JPanel();
-		mapPanel.setBounds(0, 0, mapFrame.getWidth(), mapFrame.getHeight());
-
-		// getting map from files
-		JLabel mapLabel = new JLabel();
-		mapLabel.setSize(mapFrame.getWidth(), mapFrame.getHeight());
-		ImageIcon mapImage = new ImageIcon(new ImageIcon("./Files/map.jpg").getImage()
-				.getScaledInstance(mapFrame.getWidth() - 4, mapFrame.getHeight() - 4, Image.SCALE_SMOOTH));
-		mapLabel.setIcon(mapImage);
-		mapPanel.add(mapLabel);
-		mapContainer.add(mapPanel);
-		mapFrame.setLocation(mapButton.getLocation().x - 400, mapButton.getLocation().y - 400);
-		mapFrame.setVisible(true);
 	}
 
 	public  Gui() {
@@ -256,73 +282,8 @@ public class Gui {
 		gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameWindow.getContentPane().setBackground(Color.BLACK);
 
-		// ---NEW CODE BEGIN
-		if (USE_NEW_LAYOUT) {
-			GuiStartPanel guiStartPanel = new GuiStartPanel(this);
-			setMainPanel(guiStartPanel);
-			gameWindow.setVisible(true);
-			return;
-		}
-		// ---NEW CODE END
-
-		gameWindow.setLayout(null);
-
-		// container
-		container = gameWindow.getContentPane();
-
-		// title label
-		titleLabel = new JLabel("Witch Escape");
-		titleLabel.setForeground(Color.lightGray);
-		titleLabel.setFont(titleFont);
-
-		// titlePanel design
-		titlePanel = new JPanel();
-		titlePanel.setBounds(100, 100, 800, 125);
-		titlePanel.setOpaque(false);
-
-		// add label to panel
-		titlePanel.add(titleLabel);
-
-		// add panel to container
-		container.add(titlePanel);
-
-		// background panel design
-		backgroundPanel = new JPanel();
-		backgroundPanel.setBounds(0, 0, gameWindow.getWidth(), gameWindow.getHeight());
-
-		// background label design
-		backgroundLabel = new JLabel();
-		backgroundLabel.setSize(backgroundPanel.getWidth(), backgroundPanel.getHeight());
-
-		// setting background image
-		backgroundImage = new ImageIcon(new ImageIcon("./Files/backgroundImage.jpg").getImage()
-				.getScaledInstance(backgroundLabel.getWidth(), backgroundLabel.getHeight(), Image.SCALE_SMOOTH));
-		backgroundLabel.setIcon(backgroundImage);
-		backgroundPanel.add(backgroundLabel);
-		// add to the container
-		container.add(backgroundPanel);
-
-		// start panel design
-		startPanel = new JPanel();
-		startPanel.setBounds(400, 400, 200, 300);
-		startPanel.setOpaque(false);
-		backgroundLabel.add(startPanel);
-
-		// buttons on start page
-		//Dimension dimension = new Dimension(200, 300);
-		startButton = new JButton(" START ");
-
-
-		startButton.setFont(btnFont);
-		startButton.setOpaque(false);
-		startButton.setForeground(Color.BLACK);
-		startButton.setBackground(Color.GRAY);
-
-		// adding event listener
-		startButton.addActionListener(startScreen);
-		startPanel.add(startButton);
-		startButton.setFocusPainted(false);
-
+		GuiStartPanel guiStartPanel = new GuiStartPanel(this);
+		setMainPanel(guiStartPanel);
 		gameWindow.setVisible(true);
 	}
 
@@ -334,83 +295,13 @@ public class Gui {
 	}
 
 	public void createGameScreen() {
-
-		// ---NEW CODE BEGIN
-		if (USE_NEW_LAYOUT) {
-			guiPlayPanel = new GuiPlayPanel(this);
-			setMainPanel(guiPlayPanel);
-			return;
-		}
-		// ---NEW CODE END
-
-		// making panels invisible
-		titlePanel.setBounds(100, 10, 800, 125);
-		titlePanel.setVisible(true);
-		startButton.setVisible(false);
-		backgroundPanel.setVisible(false);
-
-		Border line = BorderFactory.createLineBorder(Color.RED);
-		// main display for outputs
-		displayOutputPanel = new JPanel();
-		displayOutputPanel.setBorder(line);
-		displayOutputPanel.setBounds(100, 345, 800, 300);
-		container.add(displayOutputPanel); // adding to the container
-		// add to display panel
-		displayOutputPanel.add(getDisplayTextArea());//Always use 'getDisplayTextArea()', as it'll be initialized if NULL. 
-
-		sidePanel = new JPanel();
-		sidePanel.setBounds(100, 130, 800, 200);
-		sidePanel.setBackground(Color.GRAY);
-		sidePanel.setLayout(new GridLayout(2, 2));
-
-		container.add(sidePanel);
-
-		sidePanel.add(getCurrentLocationLabel());
-		sidePanel.add(getDisplayCurrentLocation());
-		sidePanel.add(getItemsCollectedLabel());
-		sidePanel.add(getCurrentItemsCollected());
-
-		inputPanel = new JPanel();
-		inputPanel.setBounds(100, 650, 800, 50);
-		inputPanel.setLayout(new GridLayout(1, 3));
-
-		inputCommandLabel = new JLabel("    Go Where");
-		inputCommandLabel.setBounds(100, 650, 50, 50);
-		inputCommandLabel.setFont(displayNumberFont);
-		inputCommandLabel.setBackground(Color.GRAY);
-		inputCommandLabel.setForeground(Color.BLACK);
-		inputCommandLabel.setBorder(line);
-		inputPanel.add(inputCommandLabel);
-		container.add(inputPanel);
-
-		inputPanel.add(getInputText());
-		inputPanel.add(getEnterButton());
-		inputPanel.add(getMapButton());
-		inputPanel.add(getHelpButton());
-
-		helpPanel = new JPanel();
-		helpPanel.setBounds(100, 710, 800, 200);
-		helpPanel.setVisible(false);
-		container.add(helpPanel);
-
-		helpTextArea = new JTextArea();
-		helpTextArea.setBounds(100, 710, 800, 200);
-		helpTextArea.setFont(displayAreaFont);
-		helpTextArea.setBackground(Color.CYAN);
-		helpTextArea.setForeground(Color.BLACK);
-		helpTextArea.setLineWrap(true);
-
-		helpTextArea.setOpaque(false);
-
-		// add to display panel
-		helpPanel.add(helpTextArea);
-
-
+		guiPlayPanel = new GuiPlayPanel(this);
+		setMainPanel(guiPlayPanel);
 	}
 
 	public JButton getHelpButton() {
 		if (helpButton == null) {
-			helpButton = new JButton("Help");
+			helpButton = new JButton(SHOW_HELP_LABEL);
 			helpButton.setBorder(blueBorder);
 			helpButton.setFont(displayNumberFont);
 			helpButton.setBackground(Color.GRAY);
@@ -485,7 +376,6 @@ public class Gui {
 //	static Document document;
 
 	private GuiPlayPanel guiPlayPanel;
-	private JScrollPane displayTextAreaScroll;
 
 
 //	// function using user input
@@ -495,7 +385,7 @@ public class Gui {
 
 	// function using user input
 	public  void startTheMove() {
-
+		
 		String message = "";
 		//theWorldInteraction.createCurrentRoom("house");
 		userInput = inputText.getText(); //
@@ -507,7 +397,8 @@ public class Gui {
 
 		if(XMLParser.open.contains(inputArray[0])){
 				theWorldInteraction.open(inputArray);
-				displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.name);
+//				displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.name);
+				setCurrentLocation(theWorldInteraction.currentRoomObj.name);
 				currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 		}else if(XMLParser.get.contains(inputArray[0])){
 			theWorldInteraction.get(inputArray);
@@ -520,17 +411,17 @@ public class Gui {
 			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 
 		}
-
-
-
-		}
-
+	}
 
 
 	public static void setMessage(String message) {
 		CharacterDisplay typewriter = new CharacterDisplay(displayTextArea, message);
 		typewriter.startDisplay();
-
+	}
+	
+	public static void setHelpMessage(String message) {
+		CharacterDisplay typewriter = new CharacterDisplay(helpTextArea, message);
+		typewriter.startDisplay();
 	}
 
 	public JFrame getMainWindow() {
@@ -539,6 +430,11 @@ public class Gui {
 
 	public void revalidate() {
 		this.gameWindow.revalidate();
+	}
+
+	public static void setCurrentLocation(String name) {
+		displayCurrentLocation.setText(name);
+		GuiPlayPanel.setPinLocation(name);
 	}
 
 }
