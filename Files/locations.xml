@@ -85,10 +85,10 @@
 
     <location>
         <name>pier</name>
-        <description>You are now on the pier.NLYou look around, you see the ships on the pier and a group of sailors.;You see ships and wooden crates on the pier and the ale house down the boardwalk.NLYou're back on the pier, you see grain bags and ale kegs.NLStill on the pier, you see the forest that heads back to the Market.NLYou survive, get the 3 pieces of leather and head back toward the Market.NLEnter 1 to pick leather </description>
-        <question>You see 3 ships on the Pier, there is a brown ship, a black ship and white ship.</question>
+        <description>You are now on the pier.NLYou look around, you see the ships on the pier and a group of sailors.You see ships and wooden crates on the pier and the ale house down the boardwalk. </description>
+        <question>You see 3 ships on the Pier, there is a red  ship, a black ship and white ship.</question>
         <items></items>
-        <challenge>ShipChallenge</challenge>
+        <challenge>shipChallenge</challenge>
         <exits>none</exits>
         <nonedesc></nonedesc>
         <none>pier</none>

@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -500,6 +502,7 @@ public class Gui {
 		//theWorldInteraction.createCurrentRoom("house");
 		userInput = inputText.getText(); //
 		String[] inputArray= userInput.split(" ");
+		ArrayList<String> inputList = new ArrayList<>(Arrays.asList(inputArray));
 		String regex = "^[a-zA-Z]+$";
 //		if (!userInput.matches(regex)) {
 //			setMessage("Doesn't make any sense! What are you trying to do?");
@@ -509,20 +512,30 @@ public class Gui {
 				theWorldInteraction.open(inputArray);
 				displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.name);
 				currentItemsCollected.setText(theWorldInteraction.inventory.toString());
-		}else if(XMLParser.get.contains(inputArray[0])){
+		}else if(XMLParser.get.contains(inputArray[0])) {
 			theWorldInteraction.get(inputArray);
 			//setMessage(TheWorldInteraction.currentRoomObj.question);
 			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
-
+		}
+	     else if (inputArray[0].equalsIgnoreCase("challenge")){
+				theWorldInteraction.evaluateChallenge();
 
 		}else if(XMLParser.fight.contains(inputArray[0])){
 			theWorldInteraction.evaluateChallenge();
 			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 
 		}
-
-
-
+	     else if (XMLParser.trade.contains(inputArray[0])){
+			theWorldInteraction.trade(inputArray);
+			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
+		}
+	     else if(inputArray[0].equalsIgnoreCase("look")){
+	     	setMessage(theWorldInteraction.currentRoomObj.roomDescription + "\n" +
+					theWorldInteraction.currentRoomObj.question + "\n" + theWorldInteraction.itemsAvailableForPickUp());
+		}
+	     else if(inputList.contains("ship")){
+	     	theWorldInteraction.pickShip(inputList);
+		}
 		}
 
 

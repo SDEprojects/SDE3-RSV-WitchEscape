@@ -3,6 +3,8 @@ import static com.gamewindow.Gui.displayCurrentLocation;
 import static com.gamewindow.Gui.setMessage;
 
 import static com.util.CombatEngine.winner;
+
+import com.gamewindow.Gui;
 import com.util.XMLParser;
 import java.util.*;
 
@@ -46,19 +48,93 @@ public class TheWorldInteraction {
                 break;
             case "tradeHammerForLeatherOrSandwich":
                 //method to trade hammer for leather or sandwich
+                tradeHammerForLeatherOrSandwich();
                 break;
             case "getTheHorse":
                 //method to exchange leather or cross for horse or persuade shoe lady with the frying pan or cross
+                getTheHorse();
                 break;
             case "surviveChurch":
                 //method to combat ppl in church with the frying pan
-
+                surviveTheChurch();
                 break;
-            case "ShipChallenge":
+            case "shipChallenge":
                 //method to pick a ship and then either go back to the house, die, or solve a riddle and escape
+                shipChallenge();
                 break;
+            case "none":
+                setMessage("There is no challenge at this location");
         }
     }
+
+    //challenges
+    public void shipChallenge(){
+        setMessage("You see three ships: Pick one: black, red, or white!");
+    }
+    public void tradeHammerForLeatherOrSandwich(){
+        if(inventory.contains("hammer")){
+            setMessage("You have a hammer in your inventory, would you like to trade it for leather or sandwich? ");
+        }
+        else{
+            setMessage("You have nothing useful to exchange");
+        }
+    }
+    public void trade(String [] inputArray){
+        System.out.println("inside the trade method!");
+        ArrayList<String> inner = new ArrayList<>(Arrays.asList(inputArray));
+        System.out.println(inner);
+        if (inventory.contains("hammer")) {
+            if (inner.contains("sandwich")) {
+                inventory.remove("hammer");
+                inventory.add("sandwich");
+            } else if (inner.contains("leather")) {
+                inventory.remove("hammer");
+                inventory.add("leather");
+            }
+        }
+        if (inner.contains("horse") && (inventory.contains("leather") || inventory.contains("frying pan"))) {
+            String message = "";
+            if (inventory.contains("leather")) {
+                inventory.remove("leather");
+                message = "You successfully exchanged leather for the horse and you are now headed to the pier!";
+            } else if (inventory.contains("frying pan")) {
+                message = "You used the frying pan to persuade the shoe lady to give you the horse \n You are now happily riding the horse to the pier!";
+            }
+            setMessage(message);
+            createCurrentRoom("pier");
+        }
+
+    }
+    public void getTheHorse(){
+        setMessage("Here you can exchange leather for the horse! \n It is also possible to persuade the shoe lady with the frying pan in case " +
+                "you decided to eat a sandwich at the sandwich shop! ");
+    }
+    public void surviveTheChurch(){
+        if (inventory.contains("fork")){
+            setMessage("You were able to fight people off with the fork!");
+        }
+        else{
+            setMessage("You lost! You got set on fire!");
+            //System.exit(0);
+        }
+    }
+
+    public void pickShip(ArrayList<String> inputList){
+        if(inputList.contains("white")){
+            setMessage("You got on the white ship which ended up being full of crusaders \n Guess what happened? You died!");
+           // System.exit(0);
+        }
+        else if(inputList.contains("red")){
+            setMessage("The red ship is really a portal. It took you back to where you started! The house.");
+            createCurrentRoom("house");
+        }
+        else if (inputList.contains("black")){
+            setMessage("You chose the right ship! \n This one will take you to safety. \n You have escaped!");
+        }
+
+    }
+
+    //challenges
     public String roomPrompt() {
         String result= "";
         System.out.println("\n" + currentRoomObj.roomDescription+"\n");
@@ -110,7 +186,11 @@ public class TheWorldInteraction {
             open(inputArray);
         } else if (XMLParser.get.contains(inputArray[0])) {
             get(inputArray);
-        } else {
+        }
+        else if (inputArray[0].equalsIgnoreCase("challenge")){
+            evaluateChallenge();
+        }
+        else {
             System.out.println("You entered the wrong command");
         }
     }
@@ -183,6 +263,5 @@ public class TheWorldInteraction {
             }
         }
         displayCurrentLocation.setText(currentRoomObj.name);
-        //evaluateChallenge();
     }
 }

@@ -9,7 +9,7 @@ public class Location {
     public String question;
     public String challenge;
     List<String> availableExits;
-    List<String> roomItems;
+    public List<String> roomItems;
     HashMap<String, String> exitsTo;
     HashMap<String, String> actionDescription;
 
