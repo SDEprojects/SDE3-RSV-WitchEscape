@@ -19,11 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="253d649a-f3b6-49be-b9fa-f92f1c14e47e" name="Default Changelist" comment="">
+    <list default="true" id="1a0fb005-ad1c-49d2-a2ac-ce3cd41e3d13" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Witchescape.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Witchescape/com/game/TheWorldInteraction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Witchescape/com/game/TheWorldInteraction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/game/TheWorldInteraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/TheWorldInteraction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/gamewindow/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/gamewindow/Gui.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,15 +39,16 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1jTGf9HJ0E9OFOi88oXOwiEVcTM" />
+  <component name="ProjectId" id="1jTdAzJF901G6e0yu6yDurGYiwa" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunManager">
@@ -72,11 +74,11 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="253d649a-f3b6-49be-b9fa-f92f1c14e47e" name="Default Changelist" comment="" />
-      <created>1603820768535</created>
+      <changelist id="1a0fb005-ad1c-49d2-a2ac-ce3cd41e3d13" name="Default Changelist" comment="" />
+      <created>1603831875398</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1603820768535</updated>
+      <updated>1603831875398</updated>
     </task>
     <servers />
   </component>
@@ -92,9 +94,26 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="384" y="114" key="#Project_Structure" timestamp="1603820814079">
-      <screen x="0" y="23" width="1792" height="1043" />
+    <state x="384" y="125" key="#Project_Structure" timestamp="1603835753593">
+      <screen x="0" y="23" width="1792" height="1044" />
     </state>
-    <state x="384" y="114" key="#Project_Structure/0.23.1792.1043/-361.-1417.2560.1417@0.23.1792.1043" timestamp="1603820814079" />
+    <state x="384" y="125" key="#Project_Structure/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1603831929287" />
+    <state x="384" y="125" key="#Project_Structure/0.23.1792.1044/-361.-1417.2560.1417@0.23.1792.1044" timestamp="1603835753593" />
+    <state width="1750" height="36" key="GridCell.Tab.0.bottom" timestamp="1603834634068">
+      <screen x="0" y="23" width="1792" height="1042" />
+    </state>
+    <state width="1750" height="36" key="GridCell.Tab.0.bottom/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1603834634068" />
+    <state width="1750" height="36" key="GridCell.Tab.0.center" timestamp="1603834634067">
+      <screen x="0" y="23" width="1792" height="1042" />
+    </state>
+    <state width="1750" height="36" key="GridCell.Tab.0.center/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1603834634067" />
+    <state width="1750" height="36" key="GridCell.Tab.0.left" timestamp="1603834634066">
+      <screen x="0" y="23" width="1792" height="1042" />
+    </state>
+    <state width="1750" height="36" key="GridCell.Tab.0.left/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1603834634066" />
+    <state width="1750" height="36" key="GridCell.Tab.0.right" timestamp="1603834634068">
+      <screen x="0" y="23" width="1792" height="1042" />
+    </state>
+    <state width="1750" height="36" key="GridCell.Tab.0.right/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1603834634068" />
   </component>
 </project>

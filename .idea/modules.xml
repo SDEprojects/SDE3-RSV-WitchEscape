@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Witchescape.iml" filepath="$PROJECT_DIR$/.idea/Witchescape.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Witchescape.iml" filepath="$PROJECT_DIR$/Witchescape.iml" />
     </modules>
   </component>
 </project>

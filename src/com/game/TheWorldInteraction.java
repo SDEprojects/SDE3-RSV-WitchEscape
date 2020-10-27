@@ -39,6 +39,16 @@ public class TheWorldInteraction {
         setMessage(message);
 
     }
+    public String help(){
+        boolean challenge = false;
+        if (!currentRoomObj.challenge.equals("none")){
+            challenge = true;
+        }
+        String message = currentRoomObj.question + "\n" + "Challenge in this room? " + challenge + itemsAvailableForPickUp();
+
+        return message;
+    }
+
     public void evaluateChallenge(){
         switch(currentRoomObj.challenge){
             case "zombie":
