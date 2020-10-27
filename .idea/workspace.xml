@@ -19,11 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1223e7f-01d7-4a96-a918-6345e02e4682" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Files/locations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Files/locations.xml" afterDir="false" />
+    <list default="true" id="253d649a-f3b6-49be-b9fa-f92f1c14e47e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/game/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/Location.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/game/TheWorldInteraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/TheWorldInteraction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/util/XMLParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/util/XMLParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/gamewindow/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/gamewindow/Gui.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +38,7 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1jFYZBvvc1nkks6rJ1nSbqXb2S3" />
+  <component name="ProjectId" id="1jTGf9HJ0E9OFOi88oXOwiEVcTM" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -46,7 +46,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunManager">
@@ -72,11 +72,11 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a1223e7f-01d7-4a96-a918-6345e02e4682" name="Default Changelist" comment="" />
-      <created>1603401359694</created>
+      <changelist id="253d649a-f3b6-49be-b9fa-f92f1c14e47e" name="Default Changelist" comment="" />
+      <created>1603820768535</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1603401359694</updated>
+      <updated>1603820768535</updated>
     </task>
     <servers />
   </component>
@@ -90,33 +90,11 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="384" y="123" key="#Project_Structure" timestamp="1603401608390">
-      <screen x="0" y="23" width="1792" height="1041" />
+    <state x="384" y="114" key="#Project_Structure" timestamp="1603820814079">
+      <screen x="0" y="23" width="1792" height="1043" />
     </state>
-    <state x="384" y="123" key="#Project_Structure/0.23.1792.1037/-361.-1417.2560.1417@0.23.1792.1037" timestamp="1603401438626" />
-    <state x="384" y="123" key="#Project_Structure/0.23.1792.1041/-361.-1417.2560.1417@0.23.1792.1041" timestamp="1603401608390" />
-    <state width="1750" height="283" key="GridCell.Tab.0.bottom" timestamp="1603465656240">
-      <screen x="0" y="23" width="1792" height="1033" />
-    </state>
-    <state width="1750" height="283" key="GridCell.Tab.0.bottom/0.23.1792.1033/-361.-1417.2560.1417@0.23.1792.1033" timestamp="1603465656240" />
-    <state width="1750" height="283" key="GridCell.Tab.0.bottom/0.23.1792.1037/-361.-1417.2560.1417@0.23.1792.1037" timestamp="1603405782257" />
-    <state width="1750" height="283" key="GridCell.Tab.0.center" timestamp="1603465656240">
-      <screen x="0" y="23" width="1792" height="1033" />
-    </state>
-    <state width="1750" height="283" key="GridCell.Tab.0.center/0.23.1792.1033/-361.-1417.2560.1417@0.23.1792.1033" timestamp="1603465656240" />
-    <state width="1750" height="283" key="GridCell.Tab.0.center/0.23.1792.1037/-361.-1417.2560.1417@0.23.1792.1037" timestamp="1603405782256" />
-    <state width="1750" height="283" key="GridCell.Tab.0.left" timestamp="1603465656239">
-      <screen x="0" y="23" width="1792" height="1033" />
-    </state>
-    <state width="1750" height="283" key="GridCell.Tab.0.left/0.23.1792.1033/-361.-1417.2560.1417@0.23.1792.1033" timestamp="1603465656239" />
-    <state width="1750" height="283" key="GridCell.Tab.0.left/0.23.1792.1037/-361.-1417.2560.1417@0.23.1792.1037" timestamp="1603405782255" />
-    <state width="1750" height="283" key="GridCell.Tab.0.right" timestamp="1603465656240">
-      <screen x="0" y="23" width="1792" height="1033" />
-    </state>
-    <state width="1750" height="283" key="GridCell.Tab.0.right/0.23.1792.1033/-361.-1417.2560.1417@0.23.1792.1033" timestamp="1603465656240" />
-    <state width="1750" height="283" key="GridCell.Tab.0.right/0.23.1792.1037/-361.-1417.2560.1417@0.23.1792.1037" timestamp="1603405782256" />
+    <state x="384" y="114" key="#Project_Structure/0.23.1792.1043/-361.-1417.2560.1417@0.23.1792.1043" timestamp="1603820814079" />
   </component>
 </project>
