@@ -106,6 +106,7 @@ public class Gui {
 
 			xmlParser.parser();
 			theWorldInteraction.start();
+			setCurrentLocation();
 			//theWorldInteraction.evaluateChallenge();
 //
 		}
@@ -193,6 +194,7 @@ public class Gui {
 		public void actionPerformed(ActionEvent e) {
 			// create startScreen
 			createGameScreen();
+
 		}
 	}
 
@@ -203,11 +205,13 @@ public class Gui {
 		public void actionPerformed(ActionEvent e) {
 			if(isMapBeingShown) {
 				displayTextArea();
+				setCurrentLocation();
 			}
 			else {
 				isMapBeingShown = true;
 				showMapPanel();
 				mapButton.setText(HIDE_MAP_LABEL);
+				setCurrentLocation();
 			}
 		}
 	}
@@ -234,6 +238,7 @@ public class Gui {
 		helpButton.setText(SHOW_HELP_LABEL);
 		
 		guiPlayPanel.displayTextArea();
+
 	}
 	
 	
@@ -297,6 +302,7 @@ public class Gui {
 	}
 
 	public void createGameScreen() {
+
 		guiPlayPanel = new GuiPlayPanel(this);
 		setMainPanel(guiPlayPanel);
 	}
@@ -387,7 +393,7 @@ public class Gui {
 
 	// function using user input
 	public  void startTheMove() {
-		
+		setCurrentLocation();
 		String message = "";
 		//theWorldInteraction.createCurrentRoom("house");
 		userInput = inputText.getText(); //
@@ -403,6 +409,7 @@ public class Gui {
 			theWorldInteraction.open(inputArray);
 			displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.name);
 			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
+			setCurrentLocation();
 		}else if(XMLParser.get.contains(inputArray[0])) {
 			theWorldInteraction.get(inputArray);
 			//setMessage(TheWorldInteraction.currentRoomObj.question);
@@ -413,6 +420,8 @@ public class Gui {
 
 		}else if(XMLParser.fight.contains(inputArray[0])){
 			theWorldInteraction.evaluateChallenge();
+			setCurrentLocation();
+			displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.name);
 			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 
 		}
@@ -428,6 +437,7 @@ public class Gui {
 		}
 		else if(inputList.contains("ship")){
 			theWorldInteraction.pickShip(inputList);
+
 		}
 	}
 
@@ -451,7 +461,8 @@ public class Gui {
 		this.gameWindow.revalidate();
 	}
 
-	public static void setCurrentLocation(String name) {
+	public  void setCurrentLocation() {
+		String name = theWorldInteraction.currentRoomObj.name;
 		displayCurrentLocation.setText(name);
 		GuiPlayPanel.setPinLocation(name);
 	}

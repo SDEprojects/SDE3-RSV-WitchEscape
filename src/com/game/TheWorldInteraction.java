@@ -6,6 +6,8 @@ import static com.util.CombatEngine.winner;
 
 import com.gamewindow.Gui;
 import com.util.XMLParser;
+
+import javax.swing.*;
 import java.util.*;
 
 public class TheWorldInteraction {
@@ -121,15 +123,20 @@ public class TheWorldInteraction {
 
     public void pickShip(ArrayList<String> inputList){
         if(inputList.contains("white")){
-            setMessage("You got on the white ship which ended up being full of crusaders \n Guess what happened? You died!");
-            // System.exit(0);
+
+            //setMessage("You got on the white ship which ended up being full of crusaders \n Guess what happened? You died!");
+
+            JOptionPane.showMessageDialog(Gui.gameWindow, "You got on the white ship which ended up being full of crusaders \n Guess what happened? You died!");
+            System.exit(0);
         }
         else if(inputList.contains("red")){
             setMessage("The red ship is really a portal. It took you back to where you started! The house.");
             createCurrentRoom("house");
         }
         else if (inputList.contains("black")){
-            setMessage("You chose the right ship! \n This one will take you to safety. \n You have escaped!");
+            JOptionPane.showMessageDialog(Gui.gameWindow,"You chose the right ship! \n This one will take you to safety. \n You have escaped!");
+            //setMessage("You chose the right ship! \n This one will take you to safety. \n You have escaped!");
+            System.exit(0);
         }
 
     }

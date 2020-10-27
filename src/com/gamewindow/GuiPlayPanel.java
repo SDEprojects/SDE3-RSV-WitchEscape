@@ -307,6 +307,7 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 	 * @param name
 	 */
 	public static void setPinLocation(String name) {
+
 		if(MapDetails.LOCATION_WITCH_HOUSE.equals(name)) {
 			GuiPlayPanel.pinX = MapDetails.WITCH_HOUSE_X;
 			GuiPlayPanel.pinY = MapDetails.WITCH_HOUSE_Y;
@@ -319,5 +320,8 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 			GuiPlayPanel.pinX = MapDetails.PIER_X;
 			GuiPlayPanel.pinY = MapDetails.PIER_Y;
 		}
-	}
+
+
+		}
+
 }
