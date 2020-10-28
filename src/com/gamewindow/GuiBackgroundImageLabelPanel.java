@@ -30,7 +30,9 @@ public class GuiBackgroundImageLabelPanel extends JPanel {
 	}
 
 	private JPanel createBackgroundPanel(JFrame gameWindow) {
+		gameWindow.setResizable(false);
 		JPanel backgroundPanel = new JPanel();
+
 		backgroundPanel.setBounds(0, 0, gameWindow.getWidth(), gameWindow.getHeight());
 
 		// background label design

@@ -8,10 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -56,7 +53,11 @@ public class Gui {
 	private static final String HIDE_HELP_LABEL = "Hide Help";
 	private static final String SHOW_HELP_LABEL = "Show Help";
 
-
+	public static JLabel displayCurrentLocation;
+	public static JLabel currentItemsCollected;
+	public static JTextField inputText;
+	private static JTextArea displayTextArea;
+	Container container;
 
 	public static JFrame gameWindow; // for main game window
 	private JFrame mapFrame; // for displaying map
@@ -67,6 +68,12 @@ public class Gui {
 	private ImageIcon backgroundImage;
 	private static JTextArea helpTextArea;
 
+	// instantiate the classes
+	private GameScreen startScreen = new GameScreen();
+	private DisplayMap displayMap = new DisplayMap();
+	private HelpMessageDisplay helpMessageDisplay = new HelpMessageDisplay();
+	private ExecuteMove executeMove = new ExecuteMove();
+	private InputTextFieldKeyAdapter enterKeyHandler = new InputTextFieldKeyAdapter();
 	/**
 	 * Creates and returns displayCurrentLocation label.
 	 * 
@@ -147,26 +154,11 @@ public class Gui {
 		return helpTextAreaScroll;
 	}
 
-	public static JLabel displayCurrentLocation;
-	public static JLabel currentItemsCollected;
-	public static JTextField inputText;
-	private static JTextArea displayTextArea;
-	Container container;
-
 	// Font and styling
 	public static final Font titleFont = new Font("Times New Roman", Font.BOLD, 50); // ORIGINAL
 	public static final Font btnFont = new Font("Times New Roman", Font.BOLD, 10); // ORIGINAL
 	public static final Font displayAreaFont = new Font("Times New Roman", Font.ITALIC, 18); // ORIGINAL
 	public static final Font displayNumberFont = new Font("Times New Roman", Font.BOLD, 18); // ORIGINAL
-	
-
-	// instantiate the classes
-	private GameScreen startScreen = new GameScreen();
-	private DisplayMap displayMap = new DisplayMap();
-	private HelpMessageDisplay helpMessageDisplay = new HelpMessageDisplay();
-	private ExecuteMove executeMove = new ExecuteMove();
-	private InputTextFieldKeyAdapter enterKeyHandler = new InputTextFieldKeyAdapter();
-
 
 	// Class to execute to display hidden helpPanel with instructions/commands with
 	// click of help button
@@ -263,9 +255,15 @@ public class Gui {
 	public class ExecuteMove implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			displayTextArea();
-			startTheMove();
-			inputText.setText("");
+			if(!inputText.equals(" ")) {
+				displayTextArea();
+				startTheMove();
+				inputText.setText("");
+			}else {
+				setMessage("Invalid input"+ theWorldInteraction.roomPrompt()) ;
+				startTheMove();
+				inputText.setText(" ");
+			}
 		}
 	}
 
@@ -407,52 +405,54 @@ public class Gui {
 		String[] inputArray= userInput.split(" ");
 		String regex = "^[a-zA-Z]+$";
 		ArrayList<String> inputList = new ArrayList<>(Arrays.asList(inputArray));
+		//List<String> validationList = new ArrayList<String>(Arrays.asList(regex, regex,regex));
 
-//		if (!userInput.matches(regex)) {
-//			setMessage("Doesn't make any sense! What are you trying to do?");
 
-		if(XMLParser.open.contains(inputArray[0])){
-			theWorldInteraction.open(inputArray);
-			displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.getName());
-			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
-			setCurrentLocation();
-		}else if(XMLParser.get.contains(inputArray[0])) {
-			theWorldInteraction.get(inputArray);
-			//setMessage(TheWorldInteraction.currentRoomObj.question);
-			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
-		}
-		else if (inputArray[0].equalsIgnoreCase("challenge")){
-			theWorldInteraction.evaluateChallenge();
-			setCurrentLocation();
-			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
+//		if (inputList.forEach(inputs->inputs.matches(regex))){
 
-		}else if(XMLParser.fight.contains(inputArray[0])){
-			theWorldInteraction.evaluateChallenge();
-			setCurrentLocation();
-			displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.getName());
-			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
+			if(XMLParser.open.contains(inputArray[0])){
+				theWorldInteraction.open(inputArray);
+				displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.getName());
+				currentItemsCollected.setText(theWorldInteraction.inventory.toString());
+				setCurrentLocation();
+			}else if(XMLParser.get.contains(inputArray[0])) {
+				theWorldInteraction.get(inputArray);
+				//setMessage(TheWorldInteraction.currentRoomObj.question);
+				currentItemsCollected.setText(theWorldInteraction.inventory.toString());
+			}
+			else if (inputArray[0].equalsIgnoreCase("challenge")){
+				theWorldInteraction.evaluateChallenge();
+				setCurrentLocation();
+				currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 
-		}
-		else if (XMLParser.trade.contains(inputArray[0])){
-			theWorldInteraction.trade(inputArray);
-			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
-		}
-		else if(inputArray[0].equalsIgnoreCase("look")){
-			setMessage(theWorldInteraction.currentRoomObj.getRoomDescription() + "\n" +
-					theWorldInteraction.currentRoomObj.getQuestion() + "\n" + theWorldInteraction.itemsAvailableForPickUp());
-					currentItemsCollected.setText(theWorldInteraction.inventory.toString());
-					displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.getName());
-		}
-		else if(inputList.contains("ship")){
-			theWorldInteraction.pickShip(inputList);
+			}else if(XMLParser.fight.contains(inputArray[0])){
+				theWorldInteraction.evaluateChallenge();
+				setCurrentLocation();
+				displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.getName());
+				currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 
-		}
+			}
+			else if (XMLParser.trade.contains(inputArray[0])){
+				theWorldInteraction.trade(inputArray);
+				currentItemsCollected.setText(theWorldInteraction.inventory.toString());
+			}
+			else if(inputArray[0].equalsIgnoreCase("look")){
+				setMessage(theWorldInteraction.currentRoomObj.getRoomDescription() + "\n" +
+						theWorldInteraction.currentRoomObj.getQuestion() + "\n" + theWorldInteraction.itemsAvailableForPickUp());
+						currentItemsCollected.setText(theWorldInteraction.inventory.toString());
+						displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.getName());
+			}
+			else if(inputList.contains("ship")){
+				theWorldInteraction.pickShip(inputList);
+
+			}
+
 	}
 
 
 
 	public static void setMessage(String message) {
-		CharacterDisplay typewriter = new CharacterDisplay(displayTextArea, message);
+		CharacterDisplay typewriter = new CharacterDisplay(displayTextArea, " "+message);
 		typewriter.startDisplay();
 	}
 	

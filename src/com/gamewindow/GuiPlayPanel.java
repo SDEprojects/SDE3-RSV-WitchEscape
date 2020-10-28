@@ -87,6 +87,7 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 	private JPanel getCenterPanel() {
 		if (centerPanel == null) {
 			centerPanel = new JPanel();
+
 			centerPanel.setSize(MapDetails.MAP_IMAGE_WIDTH + 10, MapDetails.MAP_IMAGE_HEIGHT + 10);
 			Border line = BorderFactory.createLineBorder(Color.RED);
 			centerPanel.setBorder(line);
@@ -211,6 +212,7 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 
 		// Create items collected details panel
 		JPanel itemsP = new JPanel();
+
 		itemsP.setLayout(new BoxLayout(itemsP, BoxLayout.PAGE_AXIS));
 		itemsP.add(gui.getItemsCollectedLabel());
 		itemsP.add(gui.getCurrentItemsCollected());

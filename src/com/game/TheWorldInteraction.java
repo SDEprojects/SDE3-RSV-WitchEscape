@@ -53,7 +53,7 @@ public class TheWorldInteraction {
         switch(currentRoomObj.getChallenge()){
             case "zombie":
                 //combatEngine.winner();
-                if(winner().equals("player")){
+                if(winner("zombie").equals("player")){
                     createCurrentRoom("pier");
                     setMessage(roomPrompt());
                 }
