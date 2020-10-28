@@ -12,8 +12,6 @@ import java.util.*;
 
 public class TheWorldInteraction {
 
-    //store previous room
-    String previousRoom;
     //store name of the current room
     public  String currentRoom;
     //store all the info for the current room
@@ -40,17 +38,19 @@ public class TheWorldInteraction {
 
     }
     public String help(){
-        boolean challenge = false;
-        if (!currentRoomObj.challenge.equals("none")){
-            challenge = true;
+        String challenge = "";
+        if (!currentRoomObj.getChallenge().equals("none")){
+            challenge = "\nThere is a challenge in this room. You can access it by typing 'challenge'";
         }
-        String message = currentRoomObj.question + "\n" + "Challenge in this room? " + challenge + itemsAvailableForPickUp();
+
+        String message =  "\n" + "Type 'open', 'explore', 'go', or 'unlock' to go to the following locations: \n" + currentRoomObj.getAvailableExits() +
+                "\n\nType 'get' or 'take' to pick up the following available items: \n" + currentRoomObj.getRoomItems() + "\n"+ challenge;
 
         return message;
     }
 
     public void evaluateChallenge(){
-        switch(currentRoomObj.challenge){
+        switch(currentRoomObj.getChallenge()){
             case "zombie":
                 //combatEngine.winner();
                 if(winner().equals("player")){
@@ -115,6 +115,9 @@ public class TheWorldInteraction {
             setMessage(message);
             createCurrentRoom("pier");
         }
+        else{
+            setMessage("You don't get a horse! You have nothing to exchange or intimidate with");
+        }
 
     }
     public void getTheHorse(){
@@ -154,15 +157,15 @@ public class TheWorldInteraction {
     //challenges
     public String roomPrompt() {
         String result= "";
-        System.out.println("\n" + currentRoomObj.roomDescription+"\n");
+        System.out.println("\n" + currentRoomObj.getRoomDescription()+"\n");
         //setMessage(currentRoomObj.roomDescription+ "\n");
 
         //itemsAvailableForPickUp();
-        System.out.println("\n" + currentRoomObj.question +"\n");
+        System.out.println("\n" + currentRoomObj.getQuestion() +"\n");
         //setMessage(currentRoomObj.question + "\n");
         //String input = scanner.nextLine();
         //evaluateInput(input);
-        result = "\n" +currentRoomObj.roomDescription+ "\n" + currentRoomObj.question +"\n or"+ itemsAvailableForPickUp();
+        result = "\n" +currentRoomObj.getRoomDescription()+ "\n" + currentRoomObj.getQuestion() +"\n or"+ itemsAvailableForPickUp();
         return result;
     }
 
@@ -176,7 +179,7 @@ public class TheWorldInteraction {
     }
     public String itemsAvailableForPickUp(){
         String result="";
-        if(currentRoomObj.roomItems.size()==0){
+        if(currentRoomObj.getRoomItems().size()==0){
 
             System.out.println("\nThere are no available items to pick up in this room");
             result= "There are no available items to pick up in this room";
@@ -185,10 +188,10 @@ public class TheWorldInteraction {
             System.out.println("\nYou can get the following items in this room: ");
             String message = "\nYou can get the following items in this room: ";
             //setMessage("\nYou can get the following items in this room: ");
-            for (var item : currentRoomObj.roomItems) {
+            for (var item : currentRoomObj.getRoomItems()) {
                 System.out.println(item);
                 if(!inventory.contains(item)){
-                    result = message+ "\n"+ currentRoomObj.roomItems.toString();
+                    result = message+ "\n"+ currentRoomObj.getRoomItems().toString();
 
                 }
                 //setMessage(currentRoomObj.roomItems.toString());
@@ -217,10 +220,10 @@ public class TheWorldInteraction {
             toChange += " " + word;
         }
         String item = toChange.toLowerCase().replace(input[0], "").trim();
-        if (currentRoomObj.roomItems.contains(item)) {
+        if (currentRoomObj.getRoomItems().contains(item)) {
             inventory.add(item);
-            currentRoomObj.roomItems.remove(item);
-            setMessage(/*currentRoomObj.roomDescription+*/"\n"+ currentRoomObj.question + "\n or"+ itemsAvailableForPickUp());
+            currentRoomObj.getRoomItems().remove(item);
+            setMessage(/*currentRoomObj.roomDescription+*/"\n"+ currentRoomObj.getQuestion() + "\n or"+ itemsAvailableForPickUp());
         }
         else{
             setMessage("No such object exists");
@@ -237,10 +240,10 @@ public class TheWorldInteraction {
         }
         String dir = direction.toLowerCase().replace(input[0], "").trim();
         System.out.println(dir);
-        System.out.println(currentRoomObj.actionDescription.get(dir));
-        String displaymessage =  currentRoomObj.actionDescription.get(dir);
-        if (!currentRoomObj.exitsTo.get(dir).equalsIgnoreCase(currentRoomObj.name)){
-            createCurrentRoom(currentRoomObj.exitsTo.get(dir).toLowerCase());
+        System.out.println(currentRoomObj.getActionDescription().get(dir));
+        String displaymessage =  currentRoomObj.getActionDescription().get(dir);
+        if (!currentRoomObj.getExitsTo().get(dir).equalsIgnoreCase(currentRoomObj.getName())){
+            createCurrentRoom(currentRoomObj.getExitsTo().get(dir).toLowerCase());
             roomPrompt();
         }
         setMessage(displaymessage+"\n"+ roomPrompt());
@@ -279,6 +282,6 @@ public class TheWorldInteraction {
                 }
             }
         }
-        displayCurrentLocation.setText(currentRoomObj.name);
+        displayCurrentLocation.setText(currentRoomObj.getName());
     }
 }

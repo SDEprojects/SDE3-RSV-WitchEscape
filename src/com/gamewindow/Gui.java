@@ -175,11 +175,15 @@ public class Gui {
 		public void actionPerformed(ActionEvent e) {
 			if(isHelpBeingShown) {
 				displayTextArea();
+				currentItemsCollected.setText(theWorldInteraction.inventory.toString());
+				setCurrentLocation();
 			}
 			else {
 				isHelpBeingShown = true;
 				showHelpPanel();
-				setHelpMessage("This is the test if the type writer works and displays in jTextArea");
+				setHelpMessage(theWorldInteraction.help());
+				currentItemsCollected.setText(theWorldInteraction.inventory.toString());
+				setCurrentLocation();
 				helpButton.setText(HIDE_HELP_LABEL);
 			}
 			
@@ -206,12 +210,14 @@ public class Gui {
 			if(isMapBeingShown) {
 				displayTextArea();
 				setCurrentLocation();
+				currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 			}
 			else {
 				isMapBeingShown = true;
 				showMapPanel();
 				mapButton.setText(HIDE_MAP_LABEL);
 				setCurrentLocation();
+				currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 			}
 		}
 	}
@@ -397,17 +403,17 @@ public class Gui {
 		String message = "";
 		//theWorldInteraction.createCurrentRoom("house");
 		userInput = inputText.getText(); //
+		userInput = userInput.toLowerCase();
 		String[] inputArray= userInput.split(" ");
 		String regex = "^[a-zA-Z]+$";
 		ArrayList<String> inputList = new ArrayList<>(Arrays.asList(inputArray));
 
 //		if (!userInput.matches(regex)) {
 //			setMessage("Doesn't make any sense! What are you trying to do?");
-		userInput = userInput.toLowerCase();
 
 		if(XMLParser.open.contains(inputArray[0])){
 			theWorldInteraction.open(inputArray);
-			displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.name);
+			displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.getName());
 			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 			setCurrentLocation();
 		}else if(XMLParser.get.contains(inputArray[0])) {
@@ -417,11 +423,13 @@ public class Gui {
 		}
 		else if (inputArray[0].equalsIgnoreCase("challenge")){
 			theWorldInteraction.evaluateChallenge();
+			setCurrentLocation();
+			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 
 		}else if(XMLParser.fight.contains(inputArray[0])){
 			theWorldInteraction.evaluateChallenge();
 			setCurrentLocation();
-			displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.name);
+			displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.getName());
 			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 
 		}
@@ -430,10 +438,10 @@ public class Gui {
 			currentItemsCollected.setText(theWorldInteraction.inventory.toString());
 		}
 		else if(inputArray[0].equalsIgnoreCase("look")){
-			setMessage(theWorldInteraction.currentRoomObj.roomDescription + "\n" +
-					theWorldInteraction.currentRoomObj.question + "\n" + theWorldInteraction.itemsAvailableForPickUp());
+			setMessage(theWorldInteraction.currentRoomObj.getRoomDescription() + "\n" +
+					theWorldInteraction.currentRoomObj.getQuestion() + "\n" + theWorldInteraction.itemsAvailableForPickUp());
 					currentItemsCollected.setText(theWorldInteraction.inventory.toString());
-					displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.name);
+					displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.getName());
 		}
 		else if(inputList.contains("ship")){
 			theWorldInteraction.pickShip(inputList);
@@ -462,7 +470,7 @@ public class Gui {
 	}
 
 	public  void setCurrentLocation() {
-		String name = theWorldInteraction.currentRoomObj.name;
+		String name = theWorldInteraction.currentRoomObj.getName();
 		displayCurrentLocation.setText(name);
 		GuiPlayPanel.setPinLocation(name);
 	}
