@@ -95,33 +95,37 @@ public class TheWorldInteraction {
         System.out.println("inside the trade method!");
         ArrayList<String> inner = new ArrayList<>(Arrays.asList(inputArray));
         System.out.println(inner);
-        if (inventory.contains("hammer")) {
-            if (inner.contains("sandwich")) {
-                inventory.remove("hammer");
-                inventory.add("sandwich");
-            } else if (inner.contains("leather")) {
-                inventory.remove("hammer");
-                inventory.add("leather");
+        if (currentRoomObj.getName().equals("sandwhichshop") || currentRoomObj.getName().equals("shoeladyshop")) {
+            if (inventory.contains("hammer")) {
+                if (inner.contains("sandwich")) {
+                    inventory.remove("hammer");
+                    inventory.add("sandwich");
+                } else if (inner.contains("leather")) {
+                    inventory.remove("hammer");
+                    inventory.add("leather");
+                }
             }
-        }
-        if (inner.contains("horse") && (inventory.contains("leather") || inventory.contains("frying pan"))) {
-            String message = "";
-            if (inventory.contains("leather")) {
-                inventory.remove("leather");
-                message = "You successfully exchanged leather for the horse and you are now headed to the pier!";
-            } else if (inventory.contains("frying pan")) {
-                message = "You used the frying pan to persuade the shoe lady to give you the horse \n You are now happily riding the horse to the pier!";
+            if (inner.contains("horse") && (inventory.contains("leather") || inventory.contains("frying pan"))) {
+                String message = "";
+                if (inventory.contains("leather")) {
+                    inventory.remove("leather");
+                    message = "You successfully exchanged leather for the horse and you are now headed to the pier!";
+                } else if (inventory.contains("frying pan")) {
+                    message = "You used the frying pan to persuade the shoe lady to give you the horse \n You are now happily riding the horse to the pier!";
+                }
+                setMessage(message);
+                createCurrentRoom("pier");
             }
-            setMessage(message);
-            createCurrentRoom("pier");
-        }
-        else{
-            setMessage("You don't get a horse! You have nothing to exchange or intimidate with");
+            else{
+                setMessage("You don't get a horse! You have nothing to exchange or intimidate with");
+            }
+        } else {
+            setMessage("You do not have anything to trade. Try going to church and get items.");
         }
 
     }
     public void getTheHorse(){
-        setMessage("Here you can exchange leather for the horse! \n It is also possible to persuade the shoe lady with the frying pan in case " +
+        setMessage("Here, you can exchange leather for the horse! \n It is also possible to persuade the shoe lady with the frying pan in case " +
                 "you decided to eat a sandwich at the sandwich shop! ");
     }
     public void surviveTheChurch(){
@@ -129,8 +133,8 @@ public class TheWorldInteraction {
             setMessage("You were able to fight people off with the fork!");
         }
         else{
-            setMessage("You lost! You got set on fire!");
-            //System.exit(0);
+            JOptionPane.showMessageDialog(Gui.gameWindow,"Game Over! You got set on fire!");
+            System.exit(0);
         }
     }
 
@@ -165,7 +169,7 @@ public class TheWorldInteraction {
         //setMessage(currentRoomObj.question + "\n");
         //String input = scanner.nextLine();
         //evaluateInput(input);
-        result = "\n" +currentRoomObj.getRoomDescription()+ "\n" + currentRoomObj.getQuestion() +"\n or"+ itemsAvailableForPickUp();
+        result = "\n" +currentRoomObj.getRoomDescription()+ "\n" + currentRoomObj.getQuestion() +"\n or \n"+ itemsAvailableForPickUp();
         return result;
     }
 
@@ -182,7 +186,7 @@ public class TheWorldInteraction {
         if(currentRoomObj.getRoomItems().size()==0){
 
             System.out.println("\nThere are no available items to pick up in this room");
-            result= "There are no available items to pick up in this room";
+            result= "\n There are no available items to pick up in this room";
         }
         else {
             System.out.println("\nYou can get the following items in this room: ");
@@ -234,6 +238,7 @@ public class TheWorldInteraction {
     }
     //open location
     public void open(String[] input) {
+        String message="";
         String direction="";
         for (var word : input) {
             direction += " "+ word;
@@ -244,9 +249,9 @@ public class TheWorldInteraction {
         String displaymessage =  currentRoomObj.getActionDescription().get(dir);
         if (!currentRoomObj.getExitsTo().get(dir).equalsIgnoreCase(currentRoomObj.getName())){
             createCurrentRoom(currentRoomObj.getExitsTo().get(dir).toLowerCase());
-            roomPrompt();
+            message = currentRoomObj.getQuestion() +"\n\n or \n"+ itemsAvailableForPickUp();
         }
-        setMessage(displaymessage+"\n"+ roomPrompt());
+        setMessage(displaymessage+"\n"+ message);
         //promptIfStayedInTheSameRoom();
     }
     //create a new room from the Location constructor

@@ -110,6 +110,7 @@ public class Gui {
 			displayTextArea.setBackground(Color.CYAN);
 			displayTextArea.setForeground(Color.BLACK);
 			displayTextArea.setLineWrap(true);
+			displayTextArea.setWrapStyleWord(true);
 
 			//Add scrollbar
 			displayTextAreaScroll = createScrollPane(displayTextArea);
@@ -460,7 +461,7 @@ public class Gui {
 			setCurrentItemsCollected();
 			displayCurrentLocation.setText(theWorldInteraction.currentRoomObj.getName());
 		}
-		else if(inputList.contains("ship")){
+		else if(theWorldInteraction.currentRoomObj.getName().equals("pier") && inputList.contains("ship")){
 			theWorldInteraction.pickShip(inputList);
 
 		}

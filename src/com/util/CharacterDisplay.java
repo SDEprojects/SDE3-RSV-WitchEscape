@@ -15,7 +15,7 @@ public class CharacterDisplay {
     public CharacterDisplay(JTextArea jTextArea, String text) {
         this.jTextArea = jTextArea;
         this.text = text;
-         timer = new Timer(10,new ActionListener(){
+         timer = new Timer(5,new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
                 String jTextAreaString = jTextArea.getText().replace("NL","\n");
