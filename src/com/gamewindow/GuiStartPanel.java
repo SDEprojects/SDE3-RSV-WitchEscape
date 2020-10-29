@@ -5,8 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class GuiStartPanel extends GuiBackgroundImageLabelPanel {
 
@@ -20,6 +19,7 @@ public class GuiStartPanel extends GuiBackgroundImageLabelPanel {
 	}
 
 	private JPanel createStartPanel() {
+
 		JPanel startPanel = new JPanel();
 //		startPanel.setBounds(400, 400, 200, 300);
 		startPanel.setOpaque(false);

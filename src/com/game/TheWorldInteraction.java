@@ -1,9 +1,9 @@
 package com.game;
-import static com.gamewindow.Gui.displayCurrentLocation;
-import static com.gamewindow.Gui.setMessage;
 
+import static com.gamewindow.Gui.*;
 import static com.util.CombatEngine.winner;
 
+import com.client.StartGame;
 import com.gamewindow.Gui;
 import com.util.XMLParser;
 
