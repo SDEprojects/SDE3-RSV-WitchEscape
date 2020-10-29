@@ -105,6 +105,7 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 	private JPanel getDisplayTextAreaPanel() {
 		if (displayTextAreaPanel == null) {
 			displayTextAreaPanel = createMapSizePanel(getGui().getDisplayTextArea());
+			displayTextAreaPanel.setSize(MapDetails.MAP_IMAGE_WIDTH, MapDetails.MAP_IMAGE_HEIGHT);
 		}
 		return displayTextAreaPanel;
 	}
@@ -215,7 +216,7 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 
 		itemsP.setLayout(new BoxLayout(itemsP, BoxLayout.PAGE_AXIS));
 		itemsP.add(gui.getItemsCollectedLabel());
-		itemsP.add(gui.getCurrentItemsCollected());
+		itemsP.add(gui.getCurrentItemsPanel());
 
 		JPanel westP = new JPanel();
 		westP.setLayout(new BoxLayout(westP, BoxLayout.PAGE_AXIS));
@@ -225,44 +226,14 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 		westP.add(GuiUtil.getBorderedPanel(itemsP), BorderLayout.SOUTH);
 		return westP;
 	}
-
-	/*
-	 * Creates and returns the map panel.
-	 */
-	private JPanel getMapPanelOriginal() {
-		if (mapPanel == null) {
-			mapPanel = new JPanel();
-			mapPanel.setSize(MapDetails.MAP_IMAGE_WIDTH, MapDetails.MAP_IMAGE_HEIGHT);
-
-			// map label design
-			JLabel mapLabel = new JLabel();
-
-			// setting map image
-			ImageIcon mapImage = new ImageIcon(new ImageIcon(MapDetails.MAP_IMAGE_FILE_PATH).getImage()
-					.getScaledInstance(MapDetails.MAP_IMAGE_WIDTH, MapDetails.MAP_IMAGE_HEIGHT, Image.SCALE_SMOOTH));
-			mapLabel.setIcon(mapImage);
-			mapPanel.add(mapLabel);
-		}
-		return mapPanel;
-	}
-
 	
 	/*
 	 * Creates and returns the map panel.
 	 */
 	private JPanel getMapPanel() {
-//		if (mapPanel == null) {
 			mapPanel = new JPanel();
 			mapPanel.setSize(MapDetails.MAP_IMAGE_WIDTH, MapDetails.MAP_IMAGE_HEIGHT);
-			
-//			mapLabel = new JLabel();
-			//---old begin
-//			mapImage = new ImageIcon(Gui.MAP_IMAGE_FILE_PATH).getImage();//ORIGINAL
-//			ImageIcon mapIcon = new ImageIcon(mapImage
-//					.getScaledInstance(Gui.MAP_IMAGE_WIDTH, Gui.MAP_IMAGE_HEIGHT, Image.SCALE_SMOOTH));
-//			mapLabel.setIcon(mapIcon);
-//			mapPanel.add(mapLabel);
-			//---old end
+
 			try {
 				//Create Map image
 				BufferedImage mapBufImage = ImageIO.read(new File(MapDetails.MAP_IMAGE_FILE_PATH));
@@ -275,11 +246,8 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-//		}
-		
-		return mapPanel;
+			return mapPanel;
 	}
-	
 
     private JLabel getImageOnImageLabel(final BufferedImage bg, BufferedImage fg) {
     	JLabel label = new JLabel(new ImageIcon(bg));
@@ -287,7 +255,6 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 		if (pinX >= 0 && pinY >= 0) {
 			BufferedImage scaled = new BufferedImage(20, 30, BufferedImage.TYPE_INT_RGB);
 			Graphics scaledGraphics = scaled.getGraphics();
-//        scaledGraphics.drawImage(fg,0,0,scaled.getWidth(),scaled.getHeight(),null);
 
 			scaledGraphics.drawImage(fg, 0, 0, 20, 30, null);
 			scaledGraphics.dispose();
@@ -299,7 +266,6 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 
 			label.repaint();
 		}
-		
         return label;
     }
 
@@ -310,20 +276,29 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 	 */
 	public static void setPinLocation(String name) {
 
-		if(MapDetails.LOCATION_WITCH_HOUSE.equals(name)) {
+		if (MapDetails.LOCATION_WITCH_HOUSE.equals(name)) {
 			GuiPlayPanel.pinX = MapDetails.WITCH_HOUSE_X;
 			GuiPlayPanel.pinY = MapDetails.WITCH_HOUSE_Y;
-		}
-		else if(MapDetails.LOCATION_MARKET.equals(name)) {
+
+		} else if (MapDetails.LOCATION_MARKET.equals(name)) {
 			GuiPlayPanel.pinX = MapDetails.ARIS_MARKET_X;
 			GuiPlayPanel.pinY = MapDetails.ARIS_MARKET_Y;
-		}
-		else if(MapDetails.PIER.equals(name)) {
+
+		} else if (MapDetails.SANDWICH.equals(name)) {
+			GuiPlayPanel.pinX = MapDetails.SANDWITCH_X;
+			GuiPlayPanel.pinY = MapDetails.SANDWITCH_Y;
+
+		} else if (MapDetails.SHOE_LADY.equals(name)) {
+			GuiPlayPanel.pinX = MapDetails.SHOE_LADY_X;
+			GuiPlayPanel.pinY = MapDetails.SHOE_LADY_Y;
+
+		} else if (MapDetails.CHURCH.equals(name)) {
+			GuiPlayPanel.pinX = MapDetails.CHURCH_X;
+			GuiPlayPanel.pinY = MapDetails.CHURCH_Y;
+
+		} else if (MapDetails.PIER.equals(name)) {
 			GuiPlayPanel.pinX = MapDetails.PIER_X;
 			GuiPlayPanel.pinY = MapDetails.PIER_Y;
 		}
-
-
-		}
-
+	}
 }

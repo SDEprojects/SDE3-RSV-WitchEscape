@@ -102,7 +102,7 @@ public class GuiMapPanel extends GuiBackgroundImageLabelPanel {
 		JPanel itemsP = new JPanel();
 		itemsP.setLayout(new BoxLayout(itemsP, BoxLayout.PAGE_AXIS));
 		itemsP.add(gui.getItemsCollectedLabel());
-		itemsP.add(gui.getCurrentItemsCollected());
+		itemsP.add(gui.getCurrentItemsPanel());
 
 		JPanel westPanel = new JPanel();
 		westPanel.setLayout(new BoxLayout(westPanel, BoxLayout.PAGE_AXIS));

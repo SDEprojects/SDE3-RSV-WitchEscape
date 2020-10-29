@@ -34,7 +34,7 @@ public class MapDetails {
 	
 	public static final String LOCATION_WITCH_HOUSE = "house";
 	public static final String LOCATION_MARKET = "market";
-	public static final String SANDWITCH = "sandwichshop";
+	public static final String SANDWICH = "sandwichshop";
 	public static final String SHOE_LADY = "shoeladyshop";
 	public static final String CHURCH = "church";
 	public static final String PIER = "pier";
