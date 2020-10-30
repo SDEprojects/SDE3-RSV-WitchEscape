@@ -1,19 +1,20 @@
 package com.gamewindow;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 
 import com.game.TheWorldInteraction;
+import com.question.answer.Question;
+import com.question.answer.QuestionDialog;
+import com.question.answer.QuestionUtil;
 import com.util.CharacterDisplay;
 import com.util.CombatEngine;
 import com.util.Validation;
@@ -53,7 +54,7 @@ public class Gui{
 	public static JTextArea currentItemsTextArea;
 	public static JTextField inputText;
 	private static JTextArea displayTextArea;
-	Container container;
+	private Container container;
 
 	public static JFrame gameWindow; // for main game window
 	private JFrame mapFrame; // for displaying map
@@ -186,6 +187,9 @@ public class Gui{
 	public static final Font displayAreaFont = new Font("Times New Roman", Font.ITALIC, 18); // ORIGINAL
 	public static final Font displayNumberFont = new Font("Times New Roman", Font.BOLD, 18); // ORIGINAL
 	public static final Font itemLabelFont = new Font("Times New Roman", Font.BOLD, 12); // ORIGINAL
+
+	//name of the ships to enter in Mini Riddle Game
+	private static final String BLACK_SHIP = "black ship";
 
 	// Class to execute to display hidden helpPanel with instructions/commands with
 	// click of help button
@@ -371,7 +375,6 @@ public class Gui{
 			enterButton.setFocusPainted(false);
 		}
 
-
 		return enterButton;
 	}
 
@@ -425,6 +428,14 @@ public class Gui{
 		//theWorldInteraction.createCurrentRoom("house");
 		userInput = inputText.getText(); //
 		userInput = userInput.toLowerCase();
+
+		if (BLACK_SHIP.equals(userInput)) {
+			if(!riddle()) {
+				JOptionPane.showMessageDialog(Gui.gameWindow, "You Failed. Boarding Denied. Villagers killed you with stones!");
+				System.exit(0);
+			}
+		}
+
 		String[] inputArray= userInput.split(" ");
 		String regex = "^[a-zA-Z]+$";
 		ArrayList<String> inputList = new ArrayList<>(Arrays.asList(inputArray));
@@ -475,7 +486,28 @@ public class Gui{
 
 	}
 
+	/*
+	* Displays the riddle Dialog
+	* @return
+	 */
 
+	private boolean riddle() {
+		List<Question> questions = QuestionUtil.getQuestions();
+
+		int correctAnswerCount = 0;
+		for (Question question : questions) {
+			QuestionDialog questionDialog = new QuestionDialog(this.gameWindow, "", Dialog.ModalityType.DOCUMENT_MODAL, question);
+			questionDialog.setVisible(true);
+			if(questionDialog.isCorrectAnswer()) {
+				correctAnswerCount++;
+				if(correctAnswerCount == 3) {
+					break;
+				}
+			}
+		}
+
+		return (correctAnswerCount == 3);
+	}
 
 	public static void setMessage(String message) {
 		CharacterDisplay typewriter = new CharacterDisplay(displayTextArea, " "+message);
