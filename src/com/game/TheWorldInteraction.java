@@ -44,7 +44,7 @@ public class TheWorldInteraction {
         }
 
         String message =  "\n" + "Type 'open', 'explore', 'go', or 'unlock' to go to the following locations: \n" + currentRoomObj.getAvailableExits() +
-                "\n\nType 'get' or 'take' to pick up the following available items: \n" + currentRoomObj.getRoomItems() + "\n"+ challenge;
+                 "\n" +itemsAvailableForPickUp() + "\n"+ challenge;
 
         return message;
     }
@@ -169,7 +169,7 @@ public class TheWorldInteraction {
         //setMessage(currentRoomObj.question + "\n");
         //String input = scanner.nextLine();
         //evaluateInput(input);
-        result = "\n" +currentRoomObj.getRoomDescription()+ "\n" + currentRoomObj.getQuestion() +"\n\n or \n"+ itemsAvailableForPickUp();
+        result = "\n\n" +currentRoomObj.getRoomDescription()+ "\n\n" + currentRoomObj.getQuestion() +"\n\n"+ itemsAvailableForPickUp();
         return result;
     }
 
@@ -183,14 +183,19 @@ public class TheWorldInteraction {
     }
     public String itemsAvailableForPickUp(){
         String result="";
-        if(currentRoomObj.getRoomItems().size()==0){
-
+        boolean empty = false;
+        for (var item : currentRoomObj.getRoomItems()){
+            if (item.equals("")){
+                empty= true;
+            }
+        }
+        if(empty){
             //System.out.println("\nThere are no available items to pick up in this room");
-            result= "\n There are no available items to pick up in this room";
+            result= "\nThere are no available items to pick up in this room";
         }
         else {
             //System.out.println("\nYou can get the following items in this room: ");
-            String message = "\nYou can get the following items in this room: ";
+            String message = "\nType 'get' or 'take' to pick up the following available items: ";
             //setMessage("\nYou can get the following items in this room: ");
             for (var item : currentRoomObj.getRoomItems()) {
                 //System.out.println(item);
@@ -227,7 +232,7 @@ public class TheWorldInteraction {
         if (currentRoomObj.getRoomItems().contains(item)) {
             inventory.add(item);
             currentRoomObj.getRoomItems().remove(item);
-            setMessage(/*currentRoomObj.roomDescription+*/"\n"+ currentRoomObj.getQuestion() + "\n or"+ itemsAvailableForPickUp());
+            setMessage(/*currentRoomObj.roomDescription+*/"\n"+ currentRoomObj.getQuestion() + "\n" + itemsAvailableForPickUp());
         }
         else{
             setMessage("No such object exists");
@@ -249,7 +254,7 @@ public class TheWorldInteraction {
         String displaymessage =  currentRoomObj.getActionDescription().get(dir);
         if (!currentRoomObj.getExitsTo().get(dir).equalsIgnoreCase(currentRoomObj.getName())){
             createCurrentRoom(currentRoomObj.getExitsTo().get(dir).toLowerCase());
-            message = "\n"+currentRoomObj.getQuestion() +"\n or \n"+ itemsAvailableForPickUp();
+            message = "\n" +currentRoomObj.getRoomDescription()+ "\n"+currentRoomObj.getQuestion() +" \n"+ itemsAvailableForPickUp();
         }
         setMessage(displaymessage+"\n"+ message);
         //promptIfStayedInTheSameRoom();
@@ -265,6 +270,7 @@ public class TheWorldInteraction {
                     String roomDescription = newMap.get("description");
                     String question = newMap.get("question");
                     String challenge = newMap.get("challenge");
+                    System.out.println(newMap.get("items"));
                     List<String> availableExits = Arrays.asList(newMap.get("exits").split(", "));
                     List<String> temp = Arrays.asList(newMap.get("items").split(", "));
                     List<String>roomItems = new ArrayList<>();

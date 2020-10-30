@@ -21,17 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1a0fb005-ad1c-49d2-a2ac-ce3cd41e3d13" name="Default Changelist" comment="help method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Witchescape/com/game/Location.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Witchescape/com/game/Location.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Witchescape/com/game/TheWorldInteraction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Witchescape/com/game/TheWorldInteraction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Witchescape/com/gamewindow/Gui$DisplayMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Witchescape/com/gamewindow/Gui$DisplayMap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Witchescape/com/gamewindow/Gui$ExecuteMove.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Witchescape/com/gamewindow/Gui$ExecuteMove.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Witchescape/com/gamewindow/Gui$GameScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Witchescape/com/gamewindow/Gui$GameScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Witchescape/com/gamewindow/Gui$HelpMessageDisplay.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Witchescape/com/gamewindow/Gui$HelpMessageDisplay.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Witchescape/com/gamewindow/Gui$InputTextFieldKeyAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Witchescape/com/gamewindow/Gui$InputTextFieldKeyAdapter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Witchescape/com/gamewindow/Gui.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Witchescape/com/gamewindow/Gui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/game/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/Location.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/game/TheWorldInteraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/game/TheWorldInteraction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/gamewindow/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/gamewindow/Gui.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +48,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RunManager">
     <configuration name="StartGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -107,6 +99,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="help method" />
@@ -122,33 +115,37 @@
       <screen x="0" y="23" width="1792" height="1037" />
     </state>
     <state x="709" y="232" key="#com.intellij.ide.util.MemberChooser/0.23.1792.1037/-361.-1417.2560.1417@0.23.1792.1037" timestamp="1603902523677" />
-    <state width="1750" height="191" key="GridCell.Tab.0.bottom" timestamp="1603903251371">
-      <screen x="0" y="23" width="1792" height="1037" />
+    <state width="1750" height="189" key="GridCell.Tab.0.bottom" timestamp="1604096006670">
+      <screen x="0" y="23" width="1792" height="1042" />
     </state>
     <state width="1750" height="191" key="GridCell.Tab.0.bottom/0.23.1792.1037/-361.-1417.2560.1417@0.23.1792.1037" timestamp="1603903251371" />
-    <state width="1750" height="36" key="GridCell.Tab.0.bottom/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1603834634068" />
+    <state width="1750" height="189" key="GridCell.Tab.0.bottom/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1604096006670" />
     <state width="1750" height="212" key="GridCell.Tab.0.bottom/0.23.1792.1045@0.23.1792.1045" timestamp="1603853148696" />
-    <state width="1750" height="191" key="GridCell.Tab.0.center" timestamp="1603903251370">
-      <screen x="0" y="23" width="1792" height="1037" />
+    <state width="1750" height="189" key="GridCell.Tab.0.center" timestamp="1604096006669">
+      <screen x="0" y="23" width="1792" height="1042" />
     </state>
     <state width="1750" height="191" key="GridCell.Tab.0.center/0.23.1792.1037/-361.-1417.2560.1417@0.23.1792.1037" timestamp="1603903251370" />
-    <state width="1750" height="36" key="GridCell.Tab.0.center/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1603834634067" />
+    <state width="1750" height="189" key="GridCell.Tab.0.center/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1604096006669" />
     <state width="1750" height="212" key="GridCell.Tab.0.center/0.23.1792.1045@0.23.1792.1045" timestamp="1603853148695" />
-    <state width="1750" height="191" key="GridCell.Tab.0.left" timestamp="1603903251369">
-      <screen x="0" y="23" width="1792" height="1037" />
+    <state width="1750" height="189" key="GridCell.Tab.0.left" timestamp="1604096006669">
+      <screen x="0" y="23" width="1792" height="1042" />
     </state>
     <state width="1750" height="191" key="GridCell.Tab.0.left/0.23.1792.1037/-361.-1417.2560.1417@0.23.1792.1037" timestamp="1603903251369" />
-    <state width="1750" height="36" key="GridCell.Tab.0.left/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1603834634066" />
+    <state width="1750" height="189" key="GridCell.Tab.0.left/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1604096006669" />
     <state width="1750" height="212" key="GridCell.Tab.0.left/0.23.1792.1045@0.23.1792.1045" timestamp="1603853148694" />
-    <state width="1750" height="191" key="GridCell.Tab.0.right" timestamp="1603903251371">
-      <screen x="0" y="23" width="1792" height="1037" />
+    <state width="1750" height="189" key="GridCell.Tab.0.right" timestamp="1604096006670">
+      <screen x="0" y="23" width="1792" height="1042" />
     </state>
     <state width="1750" height="191" key="GridCell.Tab.0.right/0.23.1792.1037/-361.-1417.2560.1417@0.23.1792.1037" timestamp="1603903251371" />
-    <state width="1750" height="36" key="GridCell.Tab.0.right/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1603834634068" />
+    <state width="1750" height="189" key="GridCell.Tab.0.right/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1604096006670" />
     <state width="1750" height="212" key="GridCell.Tab.0.right/0.23.1792.1045@0.23.1792.1045" timestamp="1603853148695" />
     <state x="496" y="271" key="Vcs.Push.Dialog.v2" timestamp="1603835778400">
       <screen x="0" y="23" width="1792" height="1044" />
     </state>
     <state x="496" y="271" key="Vcs.Push.Dialog.v2/0.23.1792.1044/-361.-1417.2560.1417@0.23.1792.1044" timestamp="1603835778400" />
+    <state x="561" y="256" width="670" height="676" key="search.everywhere.popup" timestamp="1604094761413">
+      <screen x="0" y="23" width="1792" height="1042" />
+    </state>
+    <state x="561" y="256" width="670" height="676" key="search.everywhere.popup/0.23.1792.1042/-361.-1417.2560.1417@0.23.1792.1042" timestamp="1604094761413" />
   </component>
 </project>
