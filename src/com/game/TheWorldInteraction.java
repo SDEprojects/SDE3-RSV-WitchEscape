@@ -270,7 +270,6 @@ public class TheWorldInteraction {
                     String roomDescription = newMap.get("description");
                     String question = newMap.get("question");
                     String challenge = newMap.get("challenge");
-                    System.out.println(newMap.get("items"));
                     List<String> availableExits = Arrays.asList(newMap.get("exits").split(", "));
                     List<String> temp = Arrays.asList(newMap.get("items").split(", "));
                     List<String>roomItems = new ArrayList<>();
