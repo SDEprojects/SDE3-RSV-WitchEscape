@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -230,7 +231,7 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 	/*
 	 * Creates and returns the map panel.
 	 */
-	private JPanel getMapPanel() {
+	public JPanel getMapPanel() {
 			mapPanel = new JPanel();
 			mapPanel.setSize(MapDetails.MAP_IMAGE_WIDTH, MapDetails.MAP_IMAGE_HEIGHT);
 
@@ -246,8 +247,10 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 			return mapPanel;
 	}
+
 
     private JLabel getImageOnImageLabel(final BufferedImage bg, BufferedImage fg) {
     	JLabel label = new JLabel(new ImageIcon(bg));

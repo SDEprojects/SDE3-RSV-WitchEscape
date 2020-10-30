@@ -51,7 +51,7 @@ public class GuiStartPanel extends GuiBackgroundImageLabelPanel {
 	public class TitleScreen implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("startScreen..... pressed.");
+			//System.out.println("startScreen..... pressed.");
 			// create startScreen
 			getGui().createGameScreen();
 		}

@@ -27,7 +27,7 @@ public class TheWorldInteraction {
         XMLParser parser = new XMLParser();
         parser.parser();
         //output the game intro
-        System.out.println(XMLParser.gameIntro);
+        //System.out.println(XMLParser.gameIntro);
 
 
         //start in the house
@@ -92,9 +92,9 @@ public class TheWorldInteraction {
         }
     }
     public void trade(String [] inputArray){
-        System.out.println("inside the trade method!");
+        //System.out.println("inside the trade method!");
         ArrayList<String> inner = new ArrayList<>(Arrays.asList(inputArray));
-        System.out.println(inner);
+        //System.out.println(inner);
         if (currentRoomObj.getName().equals("sandwhichshop") || currentRoomObj.getName().equals("shoeladyshop")) {
             if (inventory.contains("hammer")) {
                 if (inner.contains("sandwich")) {
@@ -161,44 +161,44 @@ public class TheWorldInteraction {
     //challenges
     public String roomPrompt() {
         String result= "";
-        System.out.println("\n" + currentRoomObj.getRoomDescription()+"\n");
+        //System.out.println("\n" + currentRoomObj.getRoomDescription()+"\n");
         //setMessage(currentRoomObj.roomDescription+ "\n");
 
         //itemsAvailableForPickUp();
-        System.out.println("\n" + currentRoomObj.getQuestion() +"\n");
+        //System.out.println("\n" + currentRoomObj.getQuestion() +"\n");
         //setMessage(currentRoomObj.question + "\n");
         //String input = scanner.nextLine();
         //evaluateInput(input);
-        result = "\n" +currentRoomObj.getRoomDescription()+ "\n" + currentRoomObj.getQuestion() +"\n or \n"+ itemsAvailableForPickUp();
+        result = "\n" +currentRoomObj.getRoomDescription()+ "\n" + currentRoomObj.getQuestion() +"\n\n or \n"+ itemsAvailableForPickUp();
         return result;
     }
 
     public void promptIfStayedInTheSameRoom(){
-        System.out.println("\n Current items in your inventory: " + inventory);
+        //System.out.println("\n Current items in your inventory: " + inventory);
         itemsAvailableForPickUp();
-        System.out.println("\nYour next move: ");
+        //System.out.println("\nYour next move: ");
 
-        String input = scanner.nextLine();
-        evaluateInput(input);
+        //String input = scanner.nextLine();
+        //evaluateInput(input);
     }
     public String itemsAvailableForPickUp(){
         String result="";
         if(currentRoomObj.getRoomItems().size()==0){
 
-            System.out.println("\nThere are no available items to pick up in this room");
+            //System.out.println("\nThere are no available items to pick up in this room");
             result= "\n There are no available items to pick up in this room";
         }
         else {
-            System.out.println("\nYou can get the following items in this room: ");
+            //System.out.println("\nYou can get the following items in this room: ");
             String message = "\nYou can get the following items in this room: ";
             //setMessage("\nYou can get the following items in this room: ");
             for (var item : currentRoomObj.getRoomItems()) {
-                System.out.println(item);
+                //System.out.println(item);
                 if(!inventory.contains(item)){
                     result = message+ "\n"+ currentRoomObj.getRoomItems().toString();
 
                 }
-                //setMessage(currentRoomObj.roomItems.toString());
+
             }
         }
         return result;
@@ -215,7 +215,7 @@ public class TheWorldInteraction {
             evaluateChallenge();
         }
         else {
-            System.out.println("You entered the wrong command");
+            //System.out.println("You entered the wrong command");
         }
     }
     public void get(String [] input){
@@ -231,7 +231,7 @@ public class TheWorldInteraction {
         }
         else{
             setMessage("No such object exists");
-            System.out.println("No such object exist");
+            //System.out.println("No such object exist");
         }
 
         //promptIfStayedInTheSameRoom();
@@ -244,12 +244,12 @@ public class TheWorldInteraction {
             direction += " "+ word;
         }
         String dir = direction.toLowerCase().replace(input[0], "").trim();
-        System.out.println(dir);
-        System.out.println(currentRoomObj.getActionDescription().get(dir));
+        //System.out.println(dir);
+       // System.out.println(currentRoomObj.getActionDescription().get(dir));
         String displaymessage =  currentRoomObj.getActionDescription().get(dir);
         if (!currentRoomObj.getExitsTo().get(dir).equalsIgnoreCase(currentRoomObj.getName())){
             createCurrentRoom(currentRoomObj.getExitsTo().get(dir).toLowerCase());
-            message = currentRoomObj.getQuestion() +"\n\n or \n"+ itemsAvailableForPickUp();
+            message = "\n"+currentRoomObj.getQuestion() +"\n or \n"+ itemsAvailableForPickUp();
         }
         setMessage(displaymessage+"\n"+ message);
         //promptIfStayedInTheSameRoom();

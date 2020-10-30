@@ -1,13 +1,12 @@
 package com.gamewindow;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
+import java.io.*;
 import java.util.*;
 import java.util.List;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -15,10 +14,8 @@ import com.game.TheWorldInteraction;
 import com.question.answer.Question;
 import com.question.answer.QuestionDialog;
 import com.question.answer.QuestionUtil;
-import com.util.CharacterDisplay;
-import com.util.CombatEngine;
-import com.util.Validation;
-import com.util.XMLParser;
+import com.sun.tools.javac.Main;
+import com.util.*;
 
 
 public class Gui{
@@ -37,6 +34,7 @@ public class Gui{
 	//Flag to indicate if the current view is map view.
 	private boolean isMapBeingShown = false;
 	private boolean isHelpBeingShown = false;
+	private GuiPlayPanel guiPlayPanel;
 
 	//Mapp Button Labels
 	private static final String HIDE_MAP_LABEL = "Hide Map";
@@ -69,6 +67,7 @@ public class Gui{
 	private HelpMessageDisplay helpMessageDisplay = new HelpMessageDisplay();
 	private ExecuteMove executeMove = new ExecuteMove();
 	private InputTextFieldKeyAdapter enterKeyHandler = new InputTextFieldKeyAdapter();
+	private MapNavigation mapNavigation = new MapNavigation();
 	private JPanel currentItemsPanel;
 	/**
 	 * Creates and returns displayCurrentLocation label.
@@ -191,6 +190,68 @@ public class Gui{
 	//name of the ships to enter in Mini Riddle Game
 	private static final String BLACK_SHIP = "black ship";
 
+
+	//Class for navigation through click on the map
+	public class MapNavigation implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			Point point = e.getPoint();
+			if(isPointValid(point)&& point.equals(MapDetails.CHURCH_X)){
+				navigate(MapDetails.CHURCH_X);
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			Point point = e.getPoint();
+			if(isPointValid(point)&& point.equals(MapDetails.CHURCH_X)){
+				navigate(MapDetails.CHURCH_X);
+			}
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+
+		}
+	}
+
+	private void navigate(int x){
+
+		switch (x){
+			case MapDetails.ARIS_MARKET_X:
+				theWorldInteraction.createCurrentRoom("market");
+			case MapDetails.SANDWITCH_X:
+				theWorldInteraction.createCurrentRoom("sandwichshop");
+			case MapDetails.SHOE_LADY_X:
+				theWorldInteraction.createCurrentRoom("shoeladyshop");
+			case MapDetails.CHURCH_X:
+				theWorldInteraction.createCurrentRoom("church");
+				break;
+		}
+
+	}
+
+	//Determine the points, clicked on the map are valid
+	private boolean isPointValid(Point point) {
+		if(point.equals(MapDetails.SHOE_LADY_X)|point.equals(MapDetails.SANDWITCH_X)|
+				point.equals(MapDetails.ARIS_MARKET_X) | point.equals(MapDetails.CHURCH_X)){
+
+			return true;
+		}
+		return false;
+	}
+
 	// Class to execute to display hidden helpPanel with instructions/commands with
 	// click of help button
 	public class HelpMessageDisplay implements ActionListener {
@@ -221,6 +282,7 @@ public class Gui{
 			else {
 				isMapBeingShown = true;
 				showMapPanel();
+				guiPlayPanel.getMapPanel().addMouseListener(mapNavigation);
 				mapButton.setText(HIDE_MAP_LABEL);
 			}
 			//Set the current location
@@ -281,6 +343,7 @@ public class Gui{
 	public class ExecuteMove implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+
 			if(!inputText.equals(" ")) {
 				displayTextArea();
 				startTheMove();
@@ -308,7 +371,7 @@ public class Gui{
 	}
 
 	public  Gui() {
-
+		MusicClip.music();
 		// game window design
 		gameWindow = new JFrame("Witch Escape: Try to escape!");
 //        gameWindow.setSize(1050,1000);//ORIGINAL
@@ -332,7 +395,7 @@ public class Gui{
 	}
 
 	public void createGameScreen() {
-
+		MusicClip.stop();
 		guiPlayPanel = new GuiPlayPanel(this);
 		setMainPanel(guiPlayPanel);
 	}
@@ -386,6 +449,7 @@ public class Gui{
 			inputText.setForeground(Color.BLACK);
 			inputText.setBorder(redBorder);
 			inputText.addKeyListener(enterKeyHandler);
+
 		}
 		return inputText;
 	}
@@ -408,24 +472,12 @@ public class Gui{
 		return currentLocationLabel;
 	}
 
-//	static File file = new File("./Files/locations.xml");
-//	static DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-//	static DocumentBuilder documentBuilder;
-//	static Document document;
-
-	private GuiPlayPanel guiPlayPanel;
-
-
-//	// function using user input
-//	public void startTheMove() {
-//		startTheMove(inputText, displayTextArea);
-//	}
-
 	// function using user input
 	public  void startTheMove() {
 		setCurrentLocation();
 		String message = "";
 		//theWorldInteraction.createCurrentRoom("house");
+		inputText.requestFocusInWindow();
 		userInput = inputText.getText(); //
 		userInput = userInput.toLowerCase();
 
@@ -437,12 +489,7 @@ public class Gui{
 		}
 
 		String[] inputArray= userInput.split(" ");
-		String regex = "^[a-zA-Z]+$";
 		ArrayList<String> inputList = new ArrayList<>(Arrays.asList(inputArray));
-		//List<String> validationList = new ArrayList<String>(Arrays.asList(regex, regex,regex));
-
-
-//		if (inputList.forEach(inputs->inputs.matches(regex))){
 
 		if (Validation.isInputValidString(userInput)) {
 			if(XMLParser.open.contains(inputArray[0])){
