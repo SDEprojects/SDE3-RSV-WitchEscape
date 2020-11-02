@@ -118,7 +118,7 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 	 * @return
 	 */
 	private JPanel createMapSizePanel(Component comp) {
-		return GuiUtil.createImageSizePanel(comp,MapDetails.MAP_IMAGE_WIDTH, MapDetails.MAP_IMAGE_HEIGHT, MapDetails.MAP_SIZED_IMAGE_FILE_PATH);
+		return GuiUtil.createImageSizePanel(comp,MapDetails.MAP_IMAGE_WIDTH, MapDetails.MAP_IMAGE_HEIGHT, GuiPlayPanel.class.getResource("/Files/mapSizedDummyImage.jpg"));
 	}
 
 	
@@ -237,10 +237,10 @@ public class GuiPlayPanel extends GuiBackgroundImageLabelPanel {
 
 			try {
 				//Create Map image
-				BufferedImage mapBufImage = ImageIO.read(new File(MapDetails.MAP_IMAGE_FILE_PATH));
+				BufferedImage mapBufImage = ImageIO.read(GuiPlayPanel.class.getResource("/Files/map.jpg"));
 				mapBufImage = GuiUtil.scaleImage(mapBufImage, MapDetails.MAP_IMAGE_WIDTH, MapDetails.MAP_IMAGE_HEIGHT);
 				//Create Pin image
-				BufferedImage pinBufImage = ImageIO.read(new File(MapDetails.PIN_IMAGE_FILE_PATH));
+				BufferedImage pinBufImage = ImageIO.read(GuiPlayPanel.class.getResource("/Files/pinImageRed.png"));
 				
 				JLabel imageOnImageLabel = getImageOnImageLabel(mapBufImage, pinBufImage);
 				mapPanel.add(imageOnImageLabel);

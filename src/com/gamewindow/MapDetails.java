@@ -3,9 +3,9 @@ package com.gamewindow;
 public class MapDetails {
 
 	//Map Image details
-	public static final String PIN_IMAGE_FILE_PATH = "./Files/pinImageRed.png";
-	public static final String MAP_SIZED_IMAGE_FILE_PATH = "./Files/mapSizedDummyImage.jpg";
-	public static final String MAP_IMAGE_FILE_PATH = "./Files/map.jpg";
+//	public static final String PIN_IMAGE_FILE_PATH = "./Files/pinImageRed.png";
+//	public static final String MAP_SIZED_IMAGE_FILE_PATH = "./Files/mapSizedDummyImage.jpg";
+//	public static final String MAP_IMAGE_FILE_PATH = "./Files/map.jpg";
 	public static final double MAP_SCALE_DOWN_PERCENT = 0.8;
 	public static final int MAP_IMAGE_WIDTH = (int) (800 * MAP_SCALE_DOWN_PERCENT);
 	public static final int MAP_IMAGE_HEIGHT = (int) (600 * MAP_SCALE_DOWN_PERCENT);

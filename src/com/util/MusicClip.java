@@ -12,7 +12,7 @@ public class MusicClip {
     public static void music(){
 
         try{
-            audioInputStream = AudioSystem.getAudioInputStream(new File("./Files/musicClip.wav"));
+            audioInputStream = AudioSystem.getAudioInputStream(MusicClip.class.getResource("/Files/musicClip.wav"));
             clip =AudioSystem.getClip();
             clip.open(audioInputStream);
             play();

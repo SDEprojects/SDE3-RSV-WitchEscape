@@ -40,7 +40,7 @@ public class GuiBackgroundImageLabelPanel extends JPanel {
 		backgroundImageLabel.setSize(backgroundPanel.getWidth(), backgroundPanel.getHeight());
 
 		// setting background image
-		ImageIcon backgroundImage = new ImageIcon(new ImageIcon(Gui.BACKGROUND_IMAGE_FILE_PATH).getImage()
+		ImageIcon backgroundImage = new ImageIcon(new ImageIcon(Gui.class.getResource("/Files/backgroundImage.jpg")).getImage()
 				.getScaledInstance(backgroundImageLabel.getWidth(), backgroundImageLabel.getHeight(), Image.SCALE_SMOOTH));
 		backgroundImageLabel.setIcon(backgroundImage);
 		backgroundPanel.add(backgroundImageLabel);

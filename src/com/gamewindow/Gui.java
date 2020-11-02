@@ -29,7 +29,7 @@ public class Gui{
 	public static final Border blueBorder = BorderFactory.createLineBorder(Color.BLUE);
 	public static final Border redBorder = BorderFactory.createLineBorder(Color.RED);
 
-	public static final String BACKGROUND_IMAGE_FILE_PATH = "./Files/backgroundImage.jpg";
+	//public static final String BACKGROUND_IMAGE_FILE_PATH = "./Files/backgroundImage.jpg";
 
 	//Flag to indicate if the current view is map view.
 	private boolean isMapBeingShown = false;

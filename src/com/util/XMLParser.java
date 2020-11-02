@@ -24,7 +24,7 @@ public class XMLParser {
         try{
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse((new File("./Files/locations.xml")));
+            Document document = builder.parse(XMLParser.class.getResource("/Files/locations.xml").toString());
             document.getDocumentElement().normalize();
 
             //Store game Intro text

@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -125,14 +126,14 @@ public class GuiUtil {
 	/**
 	 * Creates and returns a panel with a background image
 	 * label containing a dummy image that is of size map.
-	 * @param comp 
-	 * @param width 
-	 * @param height 
-	 * @param filePath 
-	 * 
+	 * @param comp
+	 * @param width
+	 * @param height
+	 * @param filePath
+	 *
 	 * @return
 	 */
-	public static JPanel createImageSizePanel(Component comp, int width, int height, String filePath) {
+	public static JPanel createImageSizePanel(Component comp, int width, int height, URL filePath) {
 	
 		JPanel textAreaPanel = new JPanel();
 		textAreaPanel.setSize(width, height);
